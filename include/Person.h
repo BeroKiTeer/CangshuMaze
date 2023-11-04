@@ -37,4 +37,5 @@ public:
 private:
     double bodyWidth = 3, bodyHeight = 100, armStepWidth = 20,
     legStepWidth = 15, armLongerThanLeg = 10;
+    bool visable = true;
 };

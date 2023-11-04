@@ -3,8 +3,8 @@
 #include <iostream>
 #include <gl/gl.h>
 #include "config.h"
-
-class Wall{
+#include "cube.h"
+class Wall : public Cube{
 public:
     Wall() = default;
     ~Wall() = default;

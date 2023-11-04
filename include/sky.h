@@ -13,8 +13,8 @@ class SkyBox {
     void render();
     void Cleanup();
 
-    inline GLuint get_skyboxTexture();
-    void set_skyboxTexture(const GLuint &skyboxTexture);
+    GLuint getSkyboxTexture();
+    void setSkyboxTexture(const GLuint &skyboxTexture);
 
     
 private:

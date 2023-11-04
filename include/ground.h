@@ -3,7 +3,8 @@
 #include <string>
 #include <gl/gl.h>
 #include "config.h"
-class Ground{
+#include "cube.h"
+class Ground : public Cube {
 public:
     Ground() = default;
     ~Ground() = default;

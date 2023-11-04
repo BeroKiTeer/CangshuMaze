@@ -13,7 +13,7 @@ public:
     void setPosition(GLfloat posX, GLfloat posY, GLfloat posZ);
     void setTarget(GLfloat targetX, GLfloat targetY, GLfloat targetZ);
     void setUpVector(GLfloat upX, GLfloat upY, GLfloat upZ);
-    void updateViewMatrix();
+    void updateViewMatrix();        //根据相机位置更新渲染视图
     void setProjectionMatrix(GLfloat fov, GLfloat aspectRatio, GLfloat nearPlane, GLfloat farPlane);
     void rotate(GLfloat deltaYaw, GLfloat deltaPitch);
     void move(GLfloat deltaX, GLfloat deltaY, GLfloat deltaZ);
