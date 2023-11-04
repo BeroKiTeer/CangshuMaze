@@ -5,7 +5,7 @@ CXXFLAGS = -Iinclude/ -DFREEGLUT_STATIC -Wall -Wextra \
 LDFLAGS = -static -static-libgcc \
 	-lfreeglut_static -lopengl32 -lwinmm -lgdi32 -lglu32
 
-EXEC = EqnoCraft.exe
+EXEC = CangshuMaze.exe
 SRC = $(wildcard src/*.cpp)
 OBJ = $(SRC:src/%.cpp=build/%.o)
 
