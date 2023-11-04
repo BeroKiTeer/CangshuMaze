@@ -1,7 +1,8 @@
+#pragma once
 #include <vector>
 #include "config.h"
 
-class Sky {
+class SkyBox {
     void addSky();
     //
     void makeSky();

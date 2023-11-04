@@ -1,7 +1,9 @@
+#pragma once
 #include <cmath>
 #include <corecrt_math.h>
 #include "ball.h"
 #include "line.h"
+#include "circle.h"
 const double WHITE[3] = {1, 1, 1};
 const double RED[3] = {1, 0, 0};
 const double YELLOW[3] = {1, 1, 0};

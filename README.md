@@ -41,4 +41,8 @@ A simple 3d maze game by OpenGL
    git push -u origin master
    ```
 
-   
+## Makefile编译
+
+1. 打开终端
+2. 输入命令`mingw32-make`
+3. 直接运行CangshuMaze.exe
