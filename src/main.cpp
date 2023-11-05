@@ -6,8 +6,8 @@
 #include <gl/freeglut.h>
 #include "Person.h"
 
-const int W = 800;
-const int H = 600;
+int W = 800;
+int H = 600;
 
 int main (int argc, char** argv)
 {
@@ -37,17 +37,39 @@ int main (int argc, char** argv)
         glEnable(GL_DEPTH_TEST);    //重新启用深度测试，以确保渲染的物体根据它们的深度位置正确排序。
         glLoadIdentity();
         glLineWidth(3);
-        //updateObverse();
-        //addGround();更新OpenGL的观察视角（视图矩阵）
-        addWall();
-        addActor();
+        //updateObverse();更新OpenGL的观察视角（视图矩阵）
+        //addGround();  渲染地面
+        //addWall();    渲染墙
+        //addActor();   渲染角色（Person）
 
         // drawLine(-300, 0, 0, 300, 0, 0, WHITE);
         // drawLine(0, -300, 0, 0, 300, 0, WHITE);
         // drawLine(0, 0, -300, 0, 0, 300, WHITE);
-        glutSwapBuffers();
+        glutSwapBuffers();  //交换前后缓冲区，以显示最新的渲染结果，从而完成一帧的渲染。
     }); 
-    glutReshapeFunc(reshape);
+    glutReshapeFunc([](int w,int h){
+        glViewport(0, 0, w, h);     
+        //设置了OpenGL的视口，告诉OpenGL将绘制的区域限定在窗口的左下角（0,0）到右上角（w,h）的区域。w 和 h 是新窗口的宽度和高度
+        glMatrixMode(GL_PROJECTION);    //将OpenGL的矩阵模式切换为投影矩阵模式
+        glLoadIdentity();                      //这一行将当前矩阵（投影矩阵）重置为单位矩阵
+        if (openMap) {      //正交投影
+            glOrtho(-GZ*mapViewFac*w/h/F, GZ*mapViewFac*w/h/F,
+            -GZ*mapViewFac/F, GZ*mapViewFac/F, 0.1, siteDistance);
+        } else {            //透视投影
+            gluPerspective(60, (double)w/h, 0.1, siteDistance);
+        }
+        glMatrixMode(GL_MODELVIEW);     //将OpenGL的矩阵模式切换回模型视图矩阵模式
+        glLoadIdentity();     //再次将当前矩阵（模型视图矩阵）重置为单位矩阵，以确保模型视图矩阵的初始状态
+        W = w, H = h;
+    });
 
+    //listener
+
+
+    //loop
+    glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);  //处理场景的移动或更新
+    glutTimerFunc(ACTROTATESPEED, actRotateLoop, ACTROTATEID);      //处理角色或对象的旋转动画
+    glutTimerFunc(ACTORJUMPSPEED, actJumpLoop, ACTORJUMPID);        //于处理角色或对象的跳跃动画
+    glutMainLoop();
     return 0;
 }

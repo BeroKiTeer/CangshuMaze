@@ -24,6 +24,15 @@ public:
      * 
      */
     void makeBody();//创建角色身体
+    void initInd(const std::vector <Point> &leftLeg, const std::vector <Point> &rightLeg,
+	const std::vector <Point> &leftArm, const std::vector <Point> &rightArm);
+    void rotateIndLeftLeg(std::vector <Point> &v, double angle);
+    void rotateIndRightLeg(std::vector <Point> &v, double angle);
+    void rotateIndLeftArm(std::vector <Point> &v, double angle);
+    void rotateIndRightArm(std::vector <Point> &v, double angle);
+    void swingIndArm(double angle, double depth);
+    void swingIndLeg(double angle, double depth);
+    void bodyTranslateY(double delta);
 
 private:
     double bodyWidth = 3, bodyHeight = 100, armStepWidth = 20,
