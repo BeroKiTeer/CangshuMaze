@@ -1,16 +1,17 @@
 #pragma once
 #include <vector>
-#include <string>
+#include <iostream>
 #include <gl/gl.h>
 #include "config.h"
-class Ground{
+
+class Wall{
 public:
-    Ground() = default;
-    ~Ground() = default;
+    Wall() = default;
+    ~Wall() = default;
 
     void init(const std::vector<GLfloat>& vertices, const std::string& texturePath);
-    void getGround();
-    void addGround();
+    void getWall();
+    void addWall();
     void cleanup();
 
 private:
