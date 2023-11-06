@@ -1,6 +1,5 @@
 #pragma once
 #include <cmath>
-#include <corecrt_math.h>
 #include "ball.h"
 #include "line.h"
 #include "circle.h"
@@ -12,7 +11,7 @@ const double BLACK[3] = {-1, -1, -1};
 const double DARKBLUE[3] = {0.2, 0.2, 0.6};
 const double DARKRED[3] = {0.6, 0.2, 0.2};
 const double DARKGREEN[3] = {0.2, 0.6, 0.2};
-const double PI = 4*tan(1);
+const double PI = 4*atan(1);
 struct Point {
     double x,y,z;
 };

@@ -1,12 +1,23 @@
 #pragma once
 #include <vector>
+#include <string>
+#include <gl/gl.h>
 #include "config.h"
 
 class SkyBox {
-    void addSky();
-    //
-    void makeSky();
-    //定义天空盒顶点
+    SkyBox() = default;
+    SkyBox(GLuint skyboxTexture);
+    ~SkyBox() = default;
+
+    void init(const std::vector<std::string>& texturePaths);
+    void render();
+    void Cleanup();
+
+    inline GLuint get_skyboxTexture();
+    void set_skyboxTexture(const GLuint &skyboxTexture);
+
+    
 private:
     std::vector<Point>sky;
+    GLuint skyboxTexture;
 };
