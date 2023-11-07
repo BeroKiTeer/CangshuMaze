@@ -7,6 +7,7 @@
 class Wall : public Cube{
 public:
     Wall() = default;
+    Wall(GLfloat width,GLfloat height,GLfloat depth);
     ~Wall() = default;
 
     void init(const std::vector<GLfloat>& vertices, const std::string& texturePath);

@@ -7,6 +7,7 @@
 class Ground : public Cube {
 public:
     Ground() = default;
+    Ground(GLfloat width,GLfloat height,GLfloat depth);
     ~Ground() = default;
 
     void init(const std::vector<GLfloat>& vertices, const std::string& texturePath);
