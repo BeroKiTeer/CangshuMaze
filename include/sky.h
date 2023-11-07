@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <gl/gl.h>
+#include <string>
+#include <gl/gl.h>
 #include "config.h"
 
 class SkyBox {

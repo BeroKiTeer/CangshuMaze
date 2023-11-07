@@ -31,5 +31,13 @@
 *.out
 *.app
 
+.vscode
+.vs
+.idea
+
+.vscode
+.vs
+.idea
+
 # .vscode
 .vscode
