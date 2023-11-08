@@ -20,7 +20,7 @@ int main (int argc, char** argv)
     glutInitWindowPosition(0, 0);
     glutCreateWindow("Maze");
 
-    //初始化：加载纹理贴图，初始化相机、墙、地板等元素
+    //初始化：加载纹理贴图，初始化相机、墙、地板等元素，建立地图
     
 
     //渲染
@@ -29,8 +29,10 @@ int main (int argc, char** argv)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDisable(GL_DEPTH_TEST);       //关闭深度测试，即禁止OpenGL对物体的深度进行检测。这是在绘制一些不需要深度排序的对象时使用的。
         glLoadIdentity();   //重置当前模型视图矩阵为单位矩阵
+        /*
         glRotated(obvRotateY, 1, 0, 0);
         glRotated(obvRotateX, 0, 1, 0);
+        */
         //分别对X轴和Y轴进行旋转。用于调整视角或相机的方向。
         //addSky();渲染天空盒
 

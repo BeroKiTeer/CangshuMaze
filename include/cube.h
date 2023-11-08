@@ -11,7 +11,7 @@ public:
     void render();
 
 private:
-    float width;   // 长方体宽度
-    float height;  // 长方体高度
-    float depth;   // 长方体深度
+    GLfloat width;   // 长方体宽度
+    GLfloat height;  // 长方体高度
+    GLfloat depth;   // 长方体深度
 };

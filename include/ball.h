@@ -1,8 +1,18 @@
 #pragma once
 #include <vector>
+#include <GL\gl.h>
 
-struct Point;
+class Ball {
+public:
+    Ball();
+    Ball(GLfloat radius, GLint segments);
 
-Point getPoint(double u, double v);
+    void render();
 
-void getBall(double x, double y, double z,double size, std::vector <Point> &ball, int acc);
+private:
+    GLfloat radius;
+    GLint segments;
+
+    std::vector<GLfloat> vertices; // 顶点坐标
+    std::vector<GLfloat> normals;  // 法线
+};

@@ -6,7 +6,7 @@
 #include "cube.h"
 class Ground : public Cube {
 public:
-    Ground() = default;
+    Ground();
     Ground(GLfloat width,GLfloat height,GLfloat depth);
     ~Ground() = default;
 
@@ -19,5 +19,5 @@ private:
     std::vector<GLfloat> vertices; // 顶点坐标、法线、纹理坐标等数据
     GLuint VAO;     // 顶点数组对象
     GLuint VBO;     // 顶点缓冲对象
-    GLuint texture; // 贴图
+    GLuint texture; // 纹理贴图
 };
