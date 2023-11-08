@@ -14,6 +14,11 @@ const double DARKGREEN[3] = {0.2, 0.6, 0.2};
 const double PI = 4*atan(1);
 struct Point {
     double x,y,z;
+    Point(double x, double y, double z):x(x),y(y),z(z){}
+};
+struct Point2d {
+    double x,y;
+    Point2d(double x, double y):x(x),y(y){}
 };
 #define ACTCOLOR WHITE
 #define GROUNDCOLOR RED
