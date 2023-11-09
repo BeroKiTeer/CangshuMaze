@@ -49,17 +49,23 @@ int main (int argc, char** argv)
         // drawLine(0, 0, -300, 0, 0, 300, WHITE);
         glutSwapBuffers();  //交换前后缓冲区，以显示最新的渲染结果，从而完成一帧的渲染。
     }); 
-    glutReshapeFunc([](int w,int h){
+    glutReshapeFunc([](int w,int h){//改变窗口大小时保持图形比例
         glViewport(0, 0, w, h);     
         //设置了OpenGL的视口，告诉OpenGL将绘制的区域限定在窗口的左下角（0,0）到右上角（w,h）的区域。w 和 h 是新窗口的宽度和高度
         glMatrixMode(GL_PROJECTION);    //将OpenGL的矩阵模式切换为投影矩阵模式
-        glLoadIdentity();                      //这一行将当前矩阵（投影矩阵）重置为单位矩阵
-        if (openMap) {      //正交投影
-            glOrtho(-GZ*mapViewFac*w/h/F, GZ*mapViewFac*w/h/F,
-            -GZ*mapViewFac/F, GZ*mapViewFac/F, 0.1, siteDistance);
-        } else {            //透视投影
-            gluPerspective(60, (double)w/h, 0.1, siteDistance);
-        }
+        glLoadIdentity();               //这一行将当前矩阵（投影矩阵）重置为单位矩阵
+
+        gluPerspective(60, (double)w/h, 0.1, 500);//宽高比改为当前值，视线区域与屏幕大小一致；
+
+        // if (openMap) {      //正交投影
+        //     glOrtho(-GZ*mapViewFac*w/h/F, GZ*mapViewFac*w/h/F,
+        //     -GZ*mapViewFac/F, GZ*mapViewFac/F, 0.1, siteDistance);
+        // } else {            //透视投影
+        //     gluPerspective(60, (double)w/h, 0.1, siteDistance);
+        // }
+
+
+
         glMatrixMode(GL_MODELVIEW);     //将OpenGL的矩阵模式切换回模型视图矩阵模式
         glLoadIdentity();     //再次将当前矩阵（模型视图矩阵）重置为单位矩阵，以确保模型视图矩阵的初始状态
         W = w, H = h;
@@ -69,9 +75,11 @@ int main (int argc, char** argv)
 
 
     //loop
+    /*
     glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);  //处理场景的移动或更新
     glutTimerFunc(ACTROTATESPEED, actRotateLoop, ACTROTATEID);      //处理角色或对象的旋转动画
     glutTimerFunc(ACTORJUMPSPEED, actJumpLoop, ACTORJUMPID);        //于处理角色或对象的跳跃动画
+    */
     glutMainLoop();
 
     return 0;
