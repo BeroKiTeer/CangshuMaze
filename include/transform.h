@@ -4,7 +4,6 @@
 #include <cmath>
 #include <iostream>
 #include "config.h"
-#define PI 4*atan(1)
 
 struct Matrix3D{
 	double x,y,z,N;
