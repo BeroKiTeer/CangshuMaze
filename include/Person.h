@@ -25,7 +25,6 @@ public:
     //：一个顶部圆柱体和一个底部圆柱体。
     
     void makeBody();//创建角色身体
-
     void initInd(const std::vector <Point> &leftLeg, const std::vector <Point> &rightLeg,
 	const std::vector <Point> &leftArm, const std::vector <Point> &rightArm);
 
