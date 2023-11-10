@@ -1,13 +1,10 @@
 #include "world.h"
 
-int W = 800;
-int H = 600;
-
 int main(int argc, char **argv)
 {
     std::cerr << "Helloworld\n";
     World myworld;
-    myworld.ShowWorld(argc,argv,800,800);
+    myworld.ShowWorld(argc,argv,W,H);
     return 0;
 }
 

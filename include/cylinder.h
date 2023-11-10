@@ -15,7 +15,7 @@ private:
     GLfloat radius;
     GLfloat height;
     GLfloat diameter;
-    GLint segments;
+    GLint segments = 30;
     Point p;        //圆柱中心点
     GLfloat x,y,z;  //圆柱中心点
 

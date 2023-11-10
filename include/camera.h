@@ -26,5 +26,4 @@ private:
     Point lookatPoint;      //观察向量（相机朝向）
     Point upVector;         //相机的上方向
     std::vector<Point>viewMatrix;       //观察矩阵
-    std::vector<Point>projectionMatrix; //投影矩阵
 };
