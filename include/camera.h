@@ -1,8 +1,7 @@
 #pragma once
 #include "GL/gl.h"
+#include "config.h"
 #include <vector>
-
-struct Point;
 
 class Camera{
 public:
@@ -23,9 +22,9 @@ public:
     void ThirdPerson();//第三人称视角
 
 private:
-    std::vector<GLfloat>camaraPosition;   //相机位置
-    std::vector<GLfloat>lookatPoint;      //观察向量（相机朝向）
-    std::vector<GLfloat>upVector;         //相机的上方向
-    std::vector<GLfloat>viewMatrix;       //观察矩阵
-    std::vector<GLfloat>projectionMatrix; //投影矩阵
+    Point camaraPosition;   //相机位置
+    Point lookatPoint;      //观察向量（相机朝向）
+    Point upVector;         //相机的上方向
+    std::vector<Point>viewMatrix;       //观察矩阵
+    std::vector<Point>projectionMatrix; //投影矩阵
 };

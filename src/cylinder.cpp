@@ -42,7 +42,7 @@ void Cylinder::render()
     // 渲染侧面
     glBegin(GL_TRIANGLE_STRIP);
     for (int i = 0; i <= segments; ++i) {
-        double theta = 2.0 * M_PI * i / segments;
+        double theta = 2.0 * PI * i / segments;
         double dx = radius * cos(theta);
         double dy = radius * sin(theta);
 

@@ -10,8 +10,6 @@ public:
     Cylinder(Point p,GLfloat radius,GLfloat height, GLint segments);
     Cylinder(GLfloat x, GLfloat y, GLfloat z,GLfloat radius,GLfloat height, GLint segments);
 
-    void GenerateCylinderVertices();
-
     void render();
 private:
     GLfloat radius;
