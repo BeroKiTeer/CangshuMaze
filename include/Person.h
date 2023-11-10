@@ -49,4 +49,5 @@ private:
     //人物属性
     double bodyWidth = 3, bodyHeight = 100, armStepWidth = 20,
     legStepWidth = 15, armLongerThanLeg = 10;
+    std::vector<Point> leftLeg, rightLeg, leftArm, rightArm;
 };
