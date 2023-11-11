@@ -1,29 +1,99 @@
 #pragma once
-#include "GL/gl.h"
+#include "gl/freeglut.h"
 #include "config.h"
-#include <vector>
+#include "transform.h"
+#include "shader.h"
+
+#define GLUT_WHEEL_UP 3
+#define GLUT_WHEEL_DOWN 4
 
 class Camera{
 public:
-    Camera() = default;
-    Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat targetX, GLfloat targetY, GLfloat targetZ);
-    ~Camera() = default;
+    Camera();
+    void DisableFirstPerson(){
+        if(EnableCameraDistance == false){
+            CameraDistance = EnableCameraLastDistance;
+        }
+        EnableCameraDistance = true;
+    }
+    void EnableFirstPerson(){
+        if(EnableCameraDistance){
+            EnableCameraLastDistance = CameraDistance;
+        }
+        EnableCameraDistance = false;
+        CameraDistance = 0.1;
+    }
+    void ShowTestCurb();
+    void ShowCamera();
+    static Camera* getInstance(){
+        static Camera instance;
+        return &instance;
+    }
+    
+    void Init();
 
-    void setPosition(GLfloat posX, GLfloat posY, GLfloat posZ);//设置位置
-    void setTarget(GLfloat targetX, GLfloat targetY, GLfloat targetZ);//设置目标
-    void setUpVector(GLfloat upX, GLfloat upY, GLfloat upZ);//设置向量
-    void updateViewMatrix();        //根据相机位置更新渲染视图
-    void setProjectionMatrix(GLfloat fov, GLfloat aspectRatio, GLfloat nearPlane, GLfloat farPlane);//设置项目矩阵
-    void rotate(GLfloat deltaYaw, GLfloat deltaPitch);//旋转
-    void move(GLfloat deltaX, GLfloat deltaY, GLfloat deltaZ);//前后左右
-    GLfloat* GetViewMatrix();
+    void SetCamera(
+        double x, double y, double z, double CameraDistance,
+        double LookX, double LookY, double LookZ,
+        double angleY, double angleZ);
+    //事件监听
+    static void OCameraKeyboard(unsigned char key, int x, int y){
+        getInstance()->CameraKeyboard(key,x,y);
+    }
 
-    void firstPerson();//第一人称视角
-    void ThirdPerson();//第三人称视角
+    static void OCameraMouseClick(int button, int state, int x, int y){
+        getInstance()->CameraMouseClick(button,state,x,y);
+    }
+
+    static void OCameraMotion(int x, int y){
+        getInstance()->CameraMotion(x,y);
+    }
 
 private:
-    Point camaraPosition;   //相机位置
-    Point lookatPoint;      //观察向量（相机朝向）
-    Point upVector;         //相机的上方向
-    std::vector<Point>viewMatrix;       //观察矩阵
+    void CameraKeyboard(unsigned char key, int x, int y);
+    void CameraMouseClick(int btu, int state, int x, int y);
+    void CameraMotion(int x, int y);
+    void shaderTestCurb(VP& TestCurbPoint);
+private:
+    double TestCurbX,TestCurbY,TestCurbZ;   //测试立方体坐标
+    double angleY, angleZ, CameraDistance;  //相机旋转角度与位置
+    bool LMouseDown, RMouseDown;            //鼠标左键按下
+    int LMouseDownX, LMouseDownY;           //鼠标右键按下的鼠标的位置
+    int LCurrentMouseX,LCurrentMouseY;      //鼠标右键按下时当前鼠标的位置
+    UINT DealyTime;                         //鼠标拖动旋转停歇时间
+    bool EnableCameraDistance;              //是否启用第一人称
+    double EnableCameraLastDistance;        //第1人称是的相机距离
+    VP TestCurbPoint, TestCurbShaderPoint;                       //测试立方体
+    UINT TestCurbShaderID;                  //测试立方体渲染ID
+    //测试立方体点集信息
+    const float TestCurb[8][3] = 
+    { 
+        0.0f, 0.0f, 0.0f,  //0
+        0.4f, 0.0f, 0.0f,  //1
+        0.4f, 0.0f, -0.4f, //2
+        0.0f, 0.0f, -0.4f, //3
+        0.0f, 0.4f, 0.0f,  //4
+        0.4f, 0.4f, 0.0f,  //5
+        0.4f, 0.4f, -0.4f, //6
+        0.0f, 0.4f, -0.4f  //7
+    }; 
+
+    //测试立方体连接线段
+    const GLint TestCurbList[12][2] = 
+    { 
+        {0, 1},    
+        {3, 2},    
+        {7, 6},    
+        {4, 5},    
+        {0, 3},    
+        {1, 2},    
+        {5, 6},    
+        {4, 7},
+        {0, 4},
+        {1, 5},
+        {7, 3},
+        {2, 6}
+    };
+
+    
 };

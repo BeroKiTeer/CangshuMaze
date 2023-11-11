@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <GL\gl.h>
-
+#include <config.h>
 class Ball {
 public:
     Ball();
