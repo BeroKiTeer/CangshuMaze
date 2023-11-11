@@ -3,6 +3,7 @@
 #include "listener.h"
 #include "config.h"
 #include "shareddata.h"
+#include "sky.h"
 extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
 void renderScene()
@@ -23,16 +24,19 @@ void renderScene()
     
     if(IsThirdPeople){
         cameraclass.getInstance()->DisableFirstPerson();
-        // cameraclass.getInstance()->ShowTestCurb();
+        cameraclass.getInstance()->ShowTestCurb();
     }
     else{
         cameraclass.getInstance()->EnableFirstPerson();
         cameraclass.getInstance()->ShowCamera();
     }
 
+    static SkyBox sky;
+    sky.ShowSky();
+
     static World DrawWorld;
     DrawWorld.DrawCoordinate();
-    // DrawWorld.DrawTestMaze();
+    DrawWorld.DrawTestMaze();
 
     glPopMatrix();
     glutSwapBuffers();
