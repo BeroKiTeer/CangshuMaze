@@ -3,6 +3,7 @@
 #include "ball.h"
 #include "line.h"
 #include "circle.h"
+typedef unsigned int UINT;
 const double WHITE[3] = {1, 1, 1};
 const double RED[3] = {1, 0, 0};
 const double YELLOW[3] = {1, 1, 0};
@@ -22,7 +23,13 @@ struct Point2d {
     double x,y;
     Point2d(double x, double y):x(x),y(y){}
 };
-const int W = 800;
-const int H = 600;
+
+//编译会出错，只能定义常量
+//mingw-make clean之后看看结果
+//先清理在编译
+// int a;
+
+const UINT WindowsWidth = 800;
+const UINT WindowsHeight = 800;
 #define ACTCOLOR WHITE
 #define GROUNDCOLOR RED
