@@ -3,6 +3,7 @@
 #include "listener.h"
 #include "config.h"
 #include "shareddata.h"
+#include "sky.h"
 extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
 void renderScene()
@@ -29,6 +30,9 @@ void renderScene()
         cameraclass.getInstance()->EnableFirstPerson();
         cameraclass.getInstance()->ShowCamera();
     }
+
+    static SkyBox sky;
+    sky.ShowSky();
 
     static World DrawWorld;
     DrawWorld.DrawCoordinate();
