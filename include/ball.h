@@ -16,6 +16,5 @@ private:
     GLint slices = 30;
     GLint stacks = 30;
 
-    std::vector<GLfloat> vertices; // 顶点坐标
-    std::vector<GLfloat> normals;  // 法线
+    std::vector<Point> vertices; // 顶点坐标
 };
