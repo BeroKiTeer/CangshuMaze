@@ -114,6 +114,59 @@ rotateDX(CurbPoint,30); //沿着x轴旋转30度
    git push -u origin master
    ```
 
+## 二次提交
+
+### 自动同步
+
+1. 将本地库与远程仓库同步
+
+   ```bash
+   git pull
+   ```
+
+2. 把本地库的内容推送到远程
+
+   ```bash
+   git push
+   ```
+
+### 手动解决本地与远程仓库的冲突
+
+1. 把文件添加到版本库中，使用命令 git add .添加到暂存区里面去，不要忘记后面的小数点“.”，意为添加文件夹下的所有文件
+
+   ```bash
+   git add .
+   ```
+
+2. 用命令 git commit告诉Git，把文件提交到仓库。引号内为提交说明(可以写提交时间)
+
+   ```bash
+   git commit -m 'other commit'  
+   ```
+
+3. 将本地库与远程仓库同步
+
+   ```bash
+   git pull
+   ```
+
+4. 使用VScode的版本管理工具手动进行文件同步
+
+5. 重新提交
+
+   ```bash
+   git add .
+   git commit -m 'merged commit'  
+   ```
+
+6. 上传远程仓库
+
+   ```bash
+   git push -u origin master
+   ```
+
+## 
+
 ## Makefile编译
 
 1. 打开终端
