@@ -20,7 +20,7 @@ void Ball::generateVertices()
 void Ball::render() 
 {
     glEnableClientState(GL_VERTEX_ARRAY);
-
+    
     glVertexPointer(3, GL_DOUBLE, 0, vertices.data());
 
     glDrawArrays(GL_POINTS, 0, vertices.size());
