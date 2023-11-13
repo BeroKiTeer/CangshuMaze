@@ -1,5 +1,22 @@
 #include "cylinder.h"
 
+inline std::vector<Point> Cylinder::get_topCircle() const 
+{ 
+    return topCircle; 
+}
+inline std::vector<Point> Cylinder::get_bottomCircle() const 
+{ 
+    return bottomCircle; 
+}
+void Cylinder::set_topCircle(const std::vector<Point> &topCircle) 
+{
+    this->topCircle = topCircle; 
+}
+void Cylinder::set_bottomCircle(const std::vector<Point> &bottomCircle) 
+{
+    this->bottomCircle = bottomCircle; 
+}
+
 Cylinder::Cylinder(GLfloat radius, GLfloat height, GLint segments)
 :radius(radius),height(height),segments(segments)
 {
@@ -26,7 +43,7 @@ Cylinder::Cylinder(GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLfloat heig
 
 void Cylinder::render()
 {
-     glBegin(GL_TRIANGLE_FAN);
+    glBegin(GL_TRIANGLE_FAN);
     for (const auto& point : bottomCircle) {
         glVertex3d(point.x, point.y, point.z);
     }
