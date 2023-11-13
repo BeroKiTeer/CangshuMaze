@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
 #include <GL\gl.h>
-#include <config.h>
+#include "config.h"
 class Ball {
 public:
     Ball();
-    Ball(GLfloat radius, GLint segments);
+    Ball(Point P,GLfloat radius, GLint segments);
 
     void generateVertices();
 
@@ -15,6 +15,6 @@ private:
     GLfloat radius;
     GLint slices = 30;
     GLint stacks = 30;
-
+    Point P;
     std::vector<Point> vertices; // 顶点坐标
 };
