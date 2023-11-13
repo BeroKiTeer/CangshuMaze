@@ -1,7 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <cstring>
 #include <cmath>
+#include <algorithm>
+#include <ctime>
+#include <queue>
 using namespace std;
 struct Edge { int u, v, z; };
 vector <Edge> edge, ans;
@@ -67,8 +71,47 @@ void genWall()
 		cout << endl;
 	}
 }
-int main ()
-{
-	genWall();
-	return 0;
+
+typedef struct ce{
+	int x, y;
+	double d;
+}ce;
+ce start,endd;
+vector<ce> path;
+
+bool cmp(ce x, ce y){
+	return x.d < y.d;
 }
+
+double get_d(int x, int y)
+{
+	return abs(endd.x-x) + abs(endd.y - y);
+}
+
+
+void A_star(ce start, ce endd)
+{
+	int vis[MAPSIZE][MAPSIZE];
+	memset(vis, 0, sizeof(vis));
+	priority_queue<ce> q;
+	q.push(start);
+	while(q.size()){
+		ce now = q.top(); q.pop();
+		if (vis[now.x][now.y]) continue;
+		vis[now.x][now.y] = 1;
+		// 未完待续.....
+	}
+}
+
+
+void get_path()
+{
+	cin>>start.x>>start.y>>endd.x>>endd.y;
+	A_star(start, endd);
+	// output path;
+}
+// int main ()
+// {
+// 	genWall();
+// 	return 0;
+// }
