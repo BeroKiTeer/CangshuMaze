@@ -2,13 +2,16 @@
 #include <iostream>
 #include <vector>
 #include "config.h"
-class Person {
+#include"cylinder.h"
+#include"transform.h"
+class Person:public Cylinder 
+{
 public:    
     Person() = default;
     ~Person() = default;
 
     void draw();
-    void move(double delx,double delz);//移动
+    void move(double delx,double dely);//移动
     void makeMatch(double topx, double topy, double bottomx, double bottomy,
     double matchWidth, double topd, double bottomd, std::vector <Point> &res);
     //其实就是画圆柱，用于创建一个特定部分（比如腿、手臂等）的3D模型
@@ -36,6 +39,10 @@ public:
     void swingIndArm(double angle, double depth);
     void swingIndLeg(double angle, double depth);
     void bodyTranslateY(double delta);
+    
+    Cylinder leftLeg, rightLeg, leftArm, rightArm,Body;
+
+
 
 protected:
     bool visable = true;
@@ -48,5 +55,5 @@ private:
     //人物属性
     double bodyWidth = 3, bodyHeight = 100, armStepWidth = 20,
     legStepWidth = 15, armLongerThanLeg = 10;
-    std::vector<Point> leftLeg, rightLeg, leftArm, rightArm;
+
 };
