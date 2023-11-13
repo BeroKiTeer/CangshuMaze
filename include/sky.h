@@ -1,25 +1,23 @@
 #pragma once
+#include <iostream>
 #include <vector>
 #include <string>
 #include <gl/gl.h>
 #include <string>
 #include <gl/gl.h>
 #include "config.h"
+#include "shader.h"
 
 class SkyBox {
-    SkyBox() = default;
-    SkyBox(GLuint skyboxTexture);
+public:
+    SkyBox();
     ~SkyBox() = default;
 
-    void init(const std::vector<std::string>& texturePaths);
-    void render();
-    void Cleanup();
-
-    GLuint getSkyboxTexture();
-    void setSkyboxTexture(const GLuint &skyboxTexture);
-
+    void ShowSky();
     
 private:
-    std::vector<Point>sky;
-    GLuint skyboxTexture;
+    std::vector<Point> SkyBoxPoint;
+    //Top,down,front,left,right,back;
+    GLuint Surface[6];
+    double Distance;
 };

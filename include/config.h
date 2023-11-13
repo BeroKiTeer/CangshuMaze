@@ -22,5 +22,7 @@ struct Point2d {
     double x,y;
     Point2d(double x, double y):x(x),y(y){}
 };
+const UINT WindowsWidth = 800;
+const UINT WindowsHeight = 800;
 #define ACTCOLOR WHITE
 #define GROUNDCOLOR RED

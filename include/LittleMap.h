@@ -12,8 +12,8 @@ public:
     void ClearMap();        //清空小地图
 
 private:
-    GLuint mapTexture;    //贴图
-    int playerX, playerY; // 玩家位置
-    int targetX, targetY; // 目标位置
+    GLuint mapTexture;      //贴图
+    int playerX, playerY;   // 玩家位置
+    int targetX, targetY;   // 目标位置
     int mapWidth, mapHeight;//小地图宽度和高度
 };
