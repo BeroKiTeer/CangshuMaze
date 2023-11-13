@@ -4,6 +4,8 @@
 #include "config.h"
 #include"cylinder.h"
 #include"transform.h"
+#include"ball.h"
+#include"camera.h"
 class Person:public Cylinder 
 {
 public:    
@@ -28,20 +30,21 @@ public:
     //：一个顶部圆柱体和一个底部圆柱体。
     
     void makeBody();//创建角色身体
-    void initInd(const std::vector <Point> &leftLeg, const std::vector <Point> &rightLeg,
-	const std::vector <Point> &leftArm, const std::vector <Point> &rightArm);
+    // void initInd(const std::vector <Point> &leftLeg, const std::vector <Point> &rightLeg,
+	// const std::vector <Point> &leftArm, const std::vector <Point> &rightArm);
 
     //移动时的动作
-    void rotateIndLeftLeg(std::vector <Point> &v, double angle);
-    void rotateIndRightLeg(std::vector <Point> &v, double angle);
-    void rotateIndLeftArm(std::vector <Point> &v, double angle);
-    void rotateIndRightArm(std::vector <Point> &v, double angle);
+    void rotateIndLeftLeg(double angle);
+    void rotateIndRightLeg(double angle);
+    void rotateIndLeftArm(double angle);
+    void rotateIndRightArm(double angle);
     void swingIndArm(double angle, double depth);
     void swingIndLeg(double angle, double depth);
     void bodyTranslateY(double delta);
+    void bodyTranslateX(double delta);
     
     Cylinder leftLeg, rightLeg, leftArm, rightArm,Body;
-
+    Ball head;
 
 
 protected:

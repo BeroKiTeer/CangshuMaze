@@ -7,7 +7,7 @@
 class Cylinder {
 public:
     Cylinder(GLfloat radius,GLfloat height, GLint segments);
-    Cylinder(Point top,Point bottom,GLfloat radius, GLint segments);
+    Cylinder(Point p, GLfloat radius, GLfloat height, GLint segments);
     Cylinder(GLfloat x, GLfloat y, GLfloat z,GLfloat radius,GLfloat height, GLint segments);
 
     void render();
