@@ -1,8 +1,8 @@
 #pragma once
 #include <cmath>
-#include "ball.h"
 #include "line.h"
 #include "circle.h"
+typedef unsigned int UINT;
 const double WHITE[3] = {1, 1, 1};
 const double RED[3] = {1, 0, 0};
 const double YELLOW[3] = {1, 1, 0};

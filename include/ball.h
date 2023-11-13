@@ -5,7 +5,7 @@
 class Ball {
 public:
     Ball();
-    Ball(GLfloat radius, GLint segments);
+    Ball(Point p,GLfloat radius, GLint segments);
 
     void generateVertices();
 
@@ -15,6 +15,6 @@ private:
     GLfloat radius;
     GLint slices = 30;
     GLint stacks = 30;
-
+    Point p;
     std::vector<Point> vertices; // 顶点坐标
 };

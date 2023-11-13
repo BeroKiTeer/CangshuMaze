@@ -19,7 +19,6 @@ typedef std::vector<Matrix3D> VMatrix3D;
 typedef std::vector<Matrix2D> VMatrix2D;
 typedef std::vector<Point> VP;
 typedef std::vector<Point2d> VP2;
-typedef unsigned int UINT;
 
 //矩阵相乘,点矩阵转换,Debug信息调试 	√
 void _MultipleMatriex3D(VMatrix3D& MatrixA_IN, VMatrix3D& MatrixB_IN);
