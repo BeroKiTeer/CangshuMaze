@@ -8,7 +8,7 @@ class Cube {
 public:
     Cube(GLfloat width,GLfloat height,GLfloat depth);
 
-    void render();
+    void render(GLfloat x, GLfloat y, GLfloat z);
 
 private:
     GLfloat width;   // 长方体宽度

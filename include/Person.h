@@ -42,9 +42,11 @@ public:
     void swingIndLeg(double angle, double depth);
     void bodyTranslateY(double delta);
     void bodyTranslateX(double delta);
+
+    void actRotateLoop(int id);     //处理角色或对象的旋转动画 用于glutTimerFunc的回调函数
     
-    Cylinder leftLeg, rightLeg, leftArm, rightArm,Body;
-    Ball head;
+    Cylinder *leftLeg, *rightLeg, *leftArm, *rightArm,*Body;
+    Ball* head;
 
 
 protected:

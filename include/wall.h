@@ -8,16 +8,15 @@ class Wall : public Cube{
 public:
     Wall() = default;
     Wall(GLfloat width,GLfloat height,GLfloat depth);
+    Wall(Point pos,GLfloat width,GLfloat height,GLfloat depth);
     ~Wall() = default;
 
-    void init(const std::vector<GLfloat>& vertices, const std::string& texturePath);
+    void init(const Point& vertices, const std::string& texturePath);
     void getWall();
     void addWall();
     void cleanup();
 
 private:
-    std::vector<GLfloat> vertices; // 顶点坐标、法线、纹理坐标等数据
-    GLuint VAO;     // 顶点数组对象
-    GLuint VBO;     // 顶点缓冲对象
+    Point vertices; // 顶点坐标、法线、纹理坐标等数据
     GLuint texture; // 贴图
 };

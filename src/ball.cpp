@@ -1,18 +1,28 @@
 #include "ball.h"
 #include "config.h"
 #include <vector>
-void Ball::generateVertices()
+Ball::Ball(Point P, GLfloat radius, GLint slices,GLint stacks):P(P),radius(radius),slices(slices),stacks(stacks)
 {
-    for (int i = 0; i <= slices; ++i) {
-        for (int j = 0; j <= stacks; ++j) {
-            double phi = 2 * PI * i / slices;
-            double theta = PI * j / stacks;
+    for (int i = 0; i <= stacks; ++i) {
+        GLfloat theta = i * PI / stacks;
+        GLfloat sinTheta = sin(theta);
+        GLfloat cosTheta = cos(theta);
 
-            double x = radius * sin(theta) * cos(phi);
-            double y = radius * cos(theta);
-            double z = radius * sin(theta) * sin(phi);
+        for (int j = 0; j <= slices; ++j) {
+            GLfloat phi = j * 2 * PI / slices;
+            GLfloat sinPhi = sin(phi);
+            GLfloat cosPhi = cos(phi);
 
-            vertices.push_back(Point(x, y, z));
+            GLfloat x = cosPhi * sinTheta;
+            GLfloat y = cosTheta;
+            GLfloat z = sinPhi * sinTheta;
+
+            GLfloat nx = cosPhi * cosTheta;
+            GLfloat ny = sinTheta;
+            GLfloat nz = sinPhi * cosTheta;
+
+            vertices.push_back({x * radius, y * radius, z * radius});
+            normals.push_back({nx, ny, nz});
         }
     }
 }
@@ -20,10 +30,25 @@ void Ball::generateVertices()
 void Ball::render() 
 {
     glEnableClientState(GL_VERTEX_ARRAY);
-    
-    glVertexPointer(3, GL_DOUBLE, 0, vertices.data());
+    glEnableClientState(GL_NORMAL_ARRAY);
 
-    glDrawArrays(GL_POINTS, 0, vertices.size());
+    glVertexPointer(3, GL_FLOAT, 0, vertices.data());
+    glNormalPointer(GL_FLOAT, 0, normals.data());
+
+    glPushMatrix();
+    glTranslatef(P.x, P.y, P.z);
+
+    for (int i = 0; i < stacks; ++i) {
+        glBegin(GL_TRIANGLE_STRIP);
+        for (int j = 0; j <= slices; ++j) {
+            glArrayElement(i * (slices + 1) + j);
+            glArrayElement((i + 1) * (slices + 1) + j);
+        }
+        glEnd();
+    }
+
+    glPopMatrix();
 
     glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_NORMAL_ARRAY);
 }

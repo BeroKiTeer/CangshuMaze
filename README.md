@@ -90,7 +90,7 @@ rotateDX(CurbPoint,30); //沿着x轴旋转30度
    git add .
    ```
 
-3. 用命令 git commit告诉Git，把文件提交到仓库。引号内为提交说明(可以写提交时间)
+3. 用命令 git commit告诉Git，把文件提交到仓库。引号内为提交说明(可以写提交时间、修改内容)
 
    ```bash
    git commit -m 'first commit'  

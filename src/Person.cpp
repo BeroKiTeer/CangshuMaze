@@ -2,18 +2,18 @@
 
 void Person::makeBody()//
 {
-    this->head=new Ball(Point(50,50,-90),10,30);
+    this->head=new Ball(Point(50,50,-90),10,30,30);
     this->Body=new Cylinder(Point(50,50,-40),10.0f,80,30);
     this->leftArm=new Cylinder(Point(40,50,-57.5),10.0f,45,30);
     this->rightArm=new Cylinder(Point(60,50,-57.5),10.0f,45,30);
-    this->leftleg=new Cylinder(Point(45,50,-17.5),5.0f,35,30);
-    this->rightleg=new Cylinder(Point(55,50,-17.5),5.0f,35,30);
+    this->leftLeg=new Cylinder(Point(45,50,-17.5),5.0f,35,30);
+    this->rightLeg=new Cylinder(Point(55,50,-17.5),5.0f,35,30);
 }
 
 
-void Person::rotateIndLeftLeg(double angle)
+void Person::rotateIndLeftArm(double angle)
 {
-    Cylinder res=leftArm;
+    Cylinder res=*leftArm;
 
     double EachStepAngle=angle*atan(1)/45;
 
@@ -31,13 +31,13 @@ void Person::rotateIndLeftLeg(double angle)
     // res.bottomCircle.y=transMartix[1][0]*res.bottomCircle.x+transMartix[1][1]*res.bottomCircle.y+transMartix[1][2]*res.bottomCircle.z+transMartix[1][3];
     // res.bottomCircle.z=transMartix[2][0]*res.bottomCircle.x+transMartix[2][1]*res.bottomCircle.y+transMartix[2][2]*res.bottomCircle.z+transMartix[2][3];
 
-    leftArm=res;   
+    *leftArm=res;   
 
 }
 
 void Person::rotateIndLeftLeg(double angle)
 {
-    Cylinder res=leftLeg;
+    Cylinder res=*leftLeg;
 
     double EachStepAngle=angle*atan(1)/45;
     
@@ -55,13 +55,13 @@ void Person::rotateIndLeftLeg(double angle)
     // res.bottomCircle.y=transMartix[1][0]*res.bottomCircle.x+transMartix[1][1]*res.bottomCircle.y+transMartix[1][2]*res.bottomCircle.z+transMartix[1][3];
     // res.bottomCircle.z=transMartix[2][0]*res.bottomCircle.x+transMartix[2][1]*res.bottomCircle.y+transMartix[2][2]*res.bottomCircle.z+transMartix[2][3];
 
-    leftLeg=res;   
+    *leftLeg=res;   
 
 }
 
 void Person::rotateIndRightArm(double angle)
 {
-    Cylinder res=rightArm;
+    Cylinder res=*rightArm;
 
     double EachStepAngle=angle*atan(1)/45;
 
@@ -80,13 +80,13 @@ void Person::rotateIndRightArm(double angle)
     // res.bottomCircle.y=transMartix[1][0]*res.bottomCircle.x+transMartix[1][1]*res.bottomCircle.y+transMartix[1][2]*res.bottomCircle.z+transMartix[1][3];
     // res.bottomCircle.z=transMartix[2][0]*res.bottomCircle.x+transMartix[2][1]*res.bottomCircle.y+transMartix[2][2]*res.bottomCircle.z+transMartix[2][3];
 
-    rightArm=res;   
+    *rightArm=res;   
 
 }
 
 void Person::rotateIndRightLeg(double angle)
 {
-    Cylinder res=rightLeg;
+    Cylinder res=*rightLeg;
 
     double EachStepAngle=angle*atan(1)/45;
 
@@ -105,34 +105,34 @@ void Person::rotateIndRightLeg(double angle)
     // res.bottomCircle.y=transMartix[1][0]*res.bottomCircle.x+transMartix[1][1]*res.bottomCircle.y+transMartix[1][2]*res.bottomCircle.z+transMartix[1][3];
     // res.bottomCircle.z=transMartix[2][0]*res.bottomCircle.x+transMartix[2][1]*res.bottomCircle.y+transMartix[2][2]*res.bottomCircle.z+transMartix[2][3];
 
-    rightLeg=res;   
+    *rightLeg=res;   
 
 }
 
 void Person::swingIndArm(double angle,double depth)
 {
-    Cylinder resLeft=leftArm,resRight=rightArm;
+    Cylinder resLeft=*leftArm,resRight=*rightArm;
     rotateDX(resLeft.topCircle,angle*atan(1)/45);
     rotateDX(resLeft.bottomCircle,angle*atan(1)/45);
     rotateDX(resRight.topCircle,-angle*atan(1)/45);
     rotateDX(resRight.bottomCircle,-angle*atan(1)/45);
-    leftArm=resLeft,rightArm=resRight;
+    *leftArm=resLeft,*rightArm=resRight;
 
 }
 
 void Person::swingIndLeg(double angle,double depth)
 {
-    Cylinder resLeft=leftLeg,resRight=rightLeg;
+    Cylinder resLeft=*leftLeg,resRight=*rightLeg;
     rotateDX(resLeft.topCircle,angle*atan(1)/45);
     rotateDX(resLeft.bottomCircle,angle*atan(1)/45);
     rotateDX(resRight.topCircle,-angle*atan(1)/45);
     rotateDX(resRight.bottomCircle,-angle*atan(1)/45);
-    leftLeg=resLeft,rightLeg=resRight;
+    *leftLeg=resLeft,*rightLeg=resRight;
 }
 
 void Person::bodyTranslateY(double delta)
 {
-    Cylinder resBody=Body,resLeftArm=leftArm,resRightArm=rightArm,resLeftLeg=leftLeg,resRightLeg=rightLeg;
+    Cylinder resBody=*Body,resLeftArm=*leftArm,resRightArm=*rightArm,resLeftLeg=*leftLeg,resRightLeg=*rightLeg;
     translateY(resBody.topCircle,delta);
     translateY(resBody.bottomCircle,delta);
     translateY(resLeftArm.topCircle,delta);
@@ -143,12 +143,12 @@ void Person::bodyTranslateY(double delta)
     translateY(resLeftLeg.bottomCircle,delta);
     translateY(resRightLeg.topCircle,delta);
     translateY(resRightLeg.bottomCircle,delta);
-    Body=resBody,leftArm=resLeftArm,leftLeg=resLeftLeg,rightArm=resRightArm,rightLeg=resRightLeg;
+    *Body=resBody,*leftArm=resLeftArm,*leftLeg=resLeftLeg,*rightArm=resRightArm,*rightLeg=resRightLeg;
 }
 
 void Person::bodyTranslateX(double delta)
 {
-    Cylinder resBody=Body,resLeftArm=leftArm,resRightArm=rightArm,resLeftLeg=leftLeg,resRightLeg=rightLeg;
+    Cylinder resBody=*Body,resLeftArm=*leftArm,resRightArm=*rightArm,resLeftLeg=*leftLeg,resRightLeg=*rightLeg;
     translateX(resBody.topCircle,delta);
     translateX(resBody.bottomCircle,delta);
     translateX(resLeftArm.topCircle,delta);
@@ -159,7 +159,7 @@ void Person::bodyTranslateX(double delta)
     translateX(resLeftLeg.bottomCircle,delta);
     translateX(resRightLeg.topCircle,delta);
     translateX(resRightLeg.bottomCircle,delta);
-    Body=resBody,leftArm=resLeftArm,leftLeg=resLeftLeg,rightArm=resRightArm,rightLeg=resRightLeg;
+    *Body=resBody,*leftArm=resLeftArm,*leftLeg=resLeftLeg,*rightArm=resRightArm,*rightLeg=resRightLeg;
 }
 void Person::move(double delx,double dely)
 {
@@ -168,10 +168,10 @@ void Person::move(double delx,double dely)
 
 void Person::draw()
 {
-    head.render();
-    Body.render();
-    leftArm.render();
-    rightArm.render();
-    leftLeg.render();
-    rightLeg.render();
+    head->render();
+    Body->render();
+    leftArm->render();
+    rightArm->render();
+    leftLeg->render();
+    rightLeg->render();
 }
