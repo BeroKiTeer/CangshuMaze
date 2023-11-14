@@ -14,4 +14,5 @@ private:
     GLfloat width;   // 长方体宽度
     GLfloat height;  // 长方体高度
     GLfloat depth;   // 长方体深度
+    GLuint texID;
 };

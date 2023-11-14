@@ -10,6 +10,8 @@
 class Camera{
 public:
     Camera();
+
+    ~Camera() = default;
     void DisableFirstPerson(){
         if(EnableCameraDistance == false){
             CameraDistance = EnableCameraLastDistance;

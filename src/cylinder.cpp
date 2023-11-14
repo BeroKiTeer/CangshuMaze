@@ -43,31 +43,27 @@ Cylinder::Cylinder(GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLfloat heig
 
 void Cylinder::render()
 {
-    glBegin(GL_TRIANGLE_FAN);
-    for (const auto& point : bottomCircle) {
-        glVertex3d(point.x, point.y, point.z);
-    }
-    glEnd();
+    // glBegin(GL_LINE_LOOP);
+    // glColor3f(0.0, 0.0, 1.0);  // 设置颜色
+    // for (const auto& point : bottomCircle) {
+    //     glVertex3d(point.x, point.y, point.z);
+    // }
+    // glEnd();
 
-    // 渲染顶部圆形
-    glBegin(GL_TRIANGLE_FAN);
-    for (const auto& point : topCircle) {
-        glVertex3d(point.x, point.y, point.z);
-    }
-    glEnd();
+    // // 渲染顶部圆形
+    // glBegin(GL_LINE_LOOP);
+    // glColor3f(0.0, 0.0, 1.0);  // 设置颜色
+    // for (const auto& point : topCircle) {
+    //     glVertex3d(point.x, point.y, point.z);
+    // }
+    // glEnd();
 
-    // 渲染侧面
-    glBegin(GL_TRIANGLE_STRIP);
-    for (int i = 0; i <= segments; ++i) {
-        double theta = 2.0 * PI * i / segments;
-        double dx = radius * cos(theta);
-        double dy = radius * sin(theta);
-
-        // 底部点
-        glVertex3d(x + dx, y + dy, z);
-
-        // 顶部点
-        glVertex3d(x + dx, y + dy, z + height);
-    }
-    glEnd();
+	// 绘制圆柱侧面
+	glColor3f(1.0, 1.0, 0.0);  // 设置颜色
+	
+	// 使用gluCylinder绘制圆柱
+	GLUquadric* quadric = gluNewQuadric();
+	gluCylinder(quadric, radius, radius, height, 50, 50);  // 底面和顶面半径均为1.0，高度为2.0，细分50x50
+	gluDeleteQuadric(quadric);
+	
 }
