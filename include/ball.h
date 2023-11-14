@@ -4,8 +4,8 @@
 #include "config.h"
 class Ball {
 public:
-    Ball();
-    Ball(Point P,GLfloat radius, GLint segments);
+    Ball() = default;
+    Ball(Point P,GLfloat radius, GLint slices,GLint stacks);
 
     void generateVertices();
 
@@ -16,5 +16,6 @@ private:
     GLint slices = 30;
     GLint stacks = 30;
     Point P;
-    std::vector<Point> vertices; // 顶点坐标
+    std::vector<Point> vertices;    // 顶点坐标
+    std::vector<Point> normals;     // 法向量,与表面垂直的矢量
 };

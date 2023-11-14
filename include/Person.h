@@ -43,8 +43,8 @@ public:
     void bodyTranslateY(double delta);
     void bodyTranslateX(double delta);
     
-    Cylinder leftLeg, rightLeg, leftArm, rightArm,Body;
-    Ball head;
+    Cylinder *leftLeg, *rightLeg, *leftArm, *rightArm,*Body;
+    Ball* head;
 
 
 protected:
