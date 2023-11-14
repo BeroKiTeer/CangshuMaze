@@ -8,7 +8,7 @@
 extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
 
-Person person;
+
 void renderScene()
 {
     glClearColor((float)(238/255.0), (float)(233/255.0), (float)(233/255.0), 0.0f);
@@ -28,13 +28,14 @@ void renderScene()
     if(IsThirdPeople){
         cameraclass.getInstance()->DisableFirstPerson();
         cameraclass.getInstance()->ShowTestCurb();
-        person.makeBody();
-        person.draw();
+
     }
     else{
         cameraclass.getInstance()->EnableFirstPerson();
         cameraclass.getInstance()->ShowCamera();
     }
+
+    static Person person;
 
     static SkyBox sky;
     sky.ShowSky();

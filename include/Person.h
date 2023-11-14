@@ -9,7 +9,7 @@
 class Person:public Cylinder 
 {
 public:    
-    Person() = default;
+    Person();
     ~Person() = default;
 
     void draw();
