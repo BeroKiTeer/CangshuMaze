@@ -8,6 +8,8 @@
 #include "cube.h"
 extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
+
+
 void renderScene()
 {
     glClearColor((float)(238/255.0), (float)(233/255.0), (float)(233/255.0), 0.0f);
@@ -30,13 +32,14 @@ void renderScene()
         delete testcube;
         cameraclass.getInstance()->DisableFirstPerson();
         cameraclass.getInstance()->ShowTestCurb();
-        
     }
     else{
         cameraclass.getInstance()->EnableFirstPerson();
         cameraclass.getInstance()->ShowCamera();
     }
-    
+
+    static Person person;
+
     static SkyBox sky;
     sky.ShowSky();
     
