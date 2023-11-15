@@ -16,6 +16,7 @@ void Cube::render_wall(GLfloat x, GLfloat y, GLfloat z)
     double cz = height;
 
     glBindTexture(GL_TEXTURE_2D, texID);
+    glTranslated(x,y,z);
     glBegin(GL_QUADS);
     // 左面
     glTexCoord2f(0.0f, 0.0f);  glVertex3f(x, y, z-cz);
