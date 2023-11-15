@@ -1,15 +1,15 @@
 #include "sky.h"
-SkyBox::SkyBox()
-{
+SkyBox::SkyBox(){
     Distance = 40.0;
     for(int i = 0; i < 6; i++){
         Surface[i] = 0;
     }
     //Top
+    SkyBoxPoint.push_back(Point(-Distance, Distance, -Distance));
     SkyBoxPoint.push_back(Point(Distance, Distance, -Distance));
     SkyBoxPoint.push_back(Point(Distance, -Distance, -Distance));
     SkyBoxPoint.push_back(Point(-Distance, -Distance, -Distance));
-    SkyBoxPoint.push_back(Point(-Distance, Distance, -Distance));
+    
     // //down
     SkyBoxPoint.push_back(Point(-Distance, Distance, Distance));
     SkyBoxPoint.push_back(Point(-Distance, -Distance, Distance));
@@ -36,8 +36,7 @@ SkyBox::SkyBox()
     SkyBoxPoint.push_back(Point(Distance, -Distance, -Distance));
     SkyBoxPoint.push_back(Point(Distance, -Distance, Distance));
 }
-void SkyBox::ShowSky()
-{
+void SkyBox::ShowSky(){
     glEnable(GL_DEPTH_TEST);    
 	glEnable(GL_TEXTURE_2D); 
     if(Surface[0] == 0){Surface[0] = loadTexture("texture/skybox/up.bmp");}
@@ -47,14 +46,15 @@ void SkyBox::ShowSky()
     if(Surface[4] == 0){Surface[4] = loadTexture("texture/skybox/right.bmp");}
     if(Surface[5] == 0){Surface[5] = loadTexture("texture/skybox/back.bmp");}
 
-    for(int i = 0; i < 6; i++) {
-        if(Surface[i] == 0) {
+    for(int i = 0; i < 6; i++){
+        if(Surface[i] == 0){
             std::cerr << "图片加载失败" << std::endl;
             exit(0);
         }
     }
 
-    for(int i = 0 ; i < 24 ; i += 4 ) {
+    for(int i=0; i<24; i+=4)
+    {
         glBindTexture(GL_TEXTURE_2D, Surface[i/4]);
         glBegin(GL_QUADS);
         glTexCoord2f(0.0f, 0.0f); glVertex3f(SkyBoxPoint[i].x, SkyBoxPoint[i].y, SkyBoxPoint[i].z);

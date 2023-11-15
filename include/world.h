@@ -7,9 +7,16 @@
 class World{
 public:
     //初始化所有变量
-    World();
+    World(){
+        for(int i = 0; i < 4; i++){
+            CoordinatePoint.push_back(Point(
+                coordinate[i][0],coordinate[i][1],coordinate[i][2]
+            ));
+        }
+        flood = 0; wall = 0;
+    };
     void DrawCoordinate();
-    void DrawTestMaze();
+    void DrawTestMaze(int SmallMap);
 private:
     VP CoordinatePoint;
     UINT flood, wall;
