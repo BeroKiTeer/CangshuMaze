@@ -62,13 +62,21 @@ void renderScene()
         cameraclass.getInstance()->ShowCamera();
     }
 
-    static Person person;
+    
     static SkyBox sky;
     sky.ShowSky();
 
     static World DrawWorld;
     DrawWorld.DrawTestMaze(1);
     DrawWorld.DrawCoordinate();
+
+    Person *person=new Person();
+    person->render();
+    person->~Person();
+    // Cylinder *cylinder = new Cylinder(Point(0.2,0.2,-0.1),0.01,0.1,50);
+    // cylinder->render();
+    // delete cylinder;
+
 
     Cube cube1(1.0, 1.0, 0.0, 3.0, 0.25, 0.5);
     cube1.render_wall(1);
