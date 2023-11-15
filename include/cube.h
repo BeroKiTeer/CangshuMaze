@@ -1,21 +1,38 @@
 #pragma once
 #include <GL/gl.h>
-#include <vector>
-/*
-立方体父类，被地板类和墙类继承
-*/
+#include "sharedData.h"
+#include "transform.h"
+
+extern GLuint TextureWallID;
+extern GLuint TextureFloorID;
+extern GLuint TextureTextcurbID;
+
 class Cube {
 public:
-    Cube(GLfloat width,GLfloat height,GLfloat depth);
-    //要放在的位置
+    Cube(
+        double x, double y, double z, 
+        double Long, double Width, double Height
+    ):x(x),y(y),z(z),Long(Long),Width(Width),Height(Height){
+    }
+    
+    Cube():x(0),y(0),z(0),Long(1.0),Width(1.0),Height(1.0){
+    }
 
-    void render_wall(GLfloat x, GLfloat y, GLfloat z);
-    void render_floor(GLfloat x, GLfloat y, GLfloat z);
-
+    void render_wall(int SmallMap){
+        this->SmallMap = SmallMap;
+        render(TextureWallID);
+    }
+    void render_floor(int SmallMap){ 
+        this->SmallMap = SmallMap;
+        render(TextureFloorID);
+    }
 private:
-    GLfloat width = 0.2;   // 长方体宽度
-    GLfloat height = 0.2;  // 长方体高度
-    GLfloat depth = 0.5;   // 长方体深度
-    GLuint texID;
-    GLfloat x,y,z;
+    void render(GLuint id);
+private:
+    double Long;
+    double Width;
+    double Height;
+    double x,y,z;
+    double Multiple = 3;
+    int SmallMap;
 };

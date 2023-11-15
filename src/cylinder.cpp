@@ -43,6 +43,7 @@ Cylinder::Cylinder(GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLfloat heig
 
 void Cylinder::render()
 {
+    glEnable(GL_DEPTH_TEST);
     // glBegin(GL_LINE_LOOP);
     // glColor3f(0.0, 0.0, 1.0);  // 设置颜色
     // for (const auto& point : bottomCircle) {
@@ -57,7 +58,8 @@ void Cylinder::render()
     //     glVertex3d(point.x, point.y, point.z);
     // }
     // glEnd();
-
+    glTranslatef(this->p.x,this->p.y,this->p.z);
+    
 	// 绘制圆柱侧面
 	glColor3f(1.0, 1.0, 0.0);  // 设置颜色
 	

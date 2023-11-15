@@ -5,7 +5,7 @@ CXXFLAGS = -Iinclude/ -DFREEGLUT_STATIC -Wall -Wextra \
 LDFLAGS = -static -static-libgcc \
 	-lfreeglut_static -lopengl32 -lwinmm -lgdi32 -lglu32
 
-VSCCXXFLAGS = -I include/ -Wall -Wextra \
+VSCCXXFLAGS = -I include/ -g -Wall -Wextra \
     -O2 -std=c++17
 VSCLDFLAGS = -static -static-libgcc \
     -lOpenGL32 -lGlU32 -lwinmm -lgdi32 \

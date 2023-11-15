@@ -3,15 +3,28 @@
 #include "config.h"
 #include "transform.h"
 #include "shader.h"
+#include "sharedData.h"
 
 #define GLUT_WHEEL_UP 3
 #define GLUT_WHEEL_DOWN 4
 
+extern GLuint TextureWallID;
+extern GLuint TextureFloorID;
+extern GLuint TextureTextcurbID;
+
 class Camera{
 public:
-    Camera();
-
-    ~Camera() = default;
+    Camera(){
+        TestCurbX = 0.0; TestCurbY = 0.0; TestCurbZ=0.0;
+        angleY = 15.0; angleZ=-90.0; CameraDistance = 1.0;
+        LMouseDown = false, RMouseDown = false;
+        LMouseDownX = 0, LMouseDownY = 0;
+        DealyTime = 0;
+        EnableCameraDistance = true;
+        EnableCameraLastDistance = 1.0;
+        TestCurbShaderID = TextureWallID;
+        scale = 0.4;
+    };
     void DisableFirstPerson(){
         if(EnableCameraDistance == false){
             CameraDistance = EnableCameraLastDistance;
@@ -25,7 +38,7 @@ public:
         EnableCameraDistance = false;
         CameraDistance = 0.1;
     }
-    void ShowTestCurb();
+    void ShowTestCurb(int SmallMap);
     void ShowCamera();
     static Camera* getInstance(){
         static Camera instance;
@@ -51,11 +64,22 @@ public:
         getInstance()->CameraMotion(x,y);
     }
 
+    Point2d getTestCurbPos2D(){
+        return Point2d(TestCurbX, TestCurbY);
+    }
+
+    Point getTestCurbPos3D(){
+        return Point(TestCurbX, TestCurbY, TestCurbZ);
+    }
+
+    double getTestCurbLong(){
+        return 0.4*scale;
+    }
 private:
     void CameraKeyboard(unsigned char key, int x, int y);
     void CameraMouseClick(int btu, int state, int x, int y);
     void CameraMotion(int x, int y);
-    void shaderTestCurb(VP& TestCurbPoint);
+    void shaderTestCurb(VP& TestCurbPoint, int SmallMap);
 private:
     double TestCurbX,TestCurbY,TestCurbZ;   //测试立方体坐标
     double angleY, angleZ, CameraDistance;  //相机旋转角度与位置
@@ -67,6 +91,7 @@ private:
     double EnableCameraLastDistance;        //第1人称是的相机距离
     VP TestCurbPoint, TestCurbShaderPoint;                       //测试立方体
     UINT TestCurbShaderID;                  //测试立方体渲染ID
+    double scale;                           //测试立方体的缩放
     //测试立方体点集信息
     const float TestCurb[8][3] = 
     { 

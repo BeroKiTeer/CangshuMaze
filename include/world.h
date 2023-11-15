@@ -3,16 +3,28 @@
 #include<GL/glut.h>
 #include "transform.h"
 #include "shader.h"
+#include "sharedData.h"
+
+extern GLuint TextureWallID;
+extern GLuint TextureFloorID;
+extern GLuint TextureTextcurbID;
 
 class World{
 public:
     //初始化所有变量
-    World();
+    World(){
+        for(int i = 0; i < 4; i++){
+            CoordinatePoint.push_back(Point(
+                coordinate[i][0],coordinate[i][1],coordinate[i][2]
+            ));
+        }
+        classflood = TextureFloorID; classwall = TextureWallID;
+    };
     void DrawCoordinate();
-    void DrawTestMaze();
+    void DrawTestMaze(int SmallMap);
 private:
     VP CoordinatePoint;
-    UINT flood, wall;
+    GLuint classflood, classwall;
     //坐标系
     const float coordinate[4][3] =
     {

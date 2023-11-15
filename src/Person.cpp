@@ -176,13 +176,13 @@ void Person::move(double delx,double dely)
 
 }
 
-// void Person::draw()
-// {
-//     head->render();
-//     Body->render();
-//     leftArm->render();
-//     rightArm->render();
-//     leftLeg->render();
-//     rightLeg->render();
-// }
+void Person::draw()
+{
+    head->render();
+    Body->render();
+    leftArm->render();
+    rightArm->render();
+    leftLeg->render();
+    rightLeg->render();
+}
 
