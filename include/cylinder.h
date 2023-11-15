@@ -2,6 +2,7 @@
 #include <cmath>
 #include <algorithm>
 #include <GL/gl.h>
+#include <GL/glu.h>
 #include "config.h"
 
 class Cylinder {

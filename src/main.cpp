@@ -4,10 +4,11 @@
 #include "config.h"
 #include "shareddata.h"
 #include "sky.h"
-#include"Person.h"
+#include "Person.h"
+#include "cube.h"
 extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
-
+// static Person person;
 
 void renderScene()
 {
@@ -26,31 +27,38 @@ void renderScene()
     glLoadIdentity();
     
     if(IsThirdPeople){
+        
         cameraclass.getInstance()->DisableFirstPerson();
         cameraclass.getInstance()->ShowTestCurb();
-        // static Ball ball(Point(0,0,0),30,30);
-        // ball.render();
-        // static Cylinder cylinder(Point(0,0,0),100.0f,45,30);
-        // cylinder.render();
     }
     else{
         cameraclass.getInstance()->EnableFirstPerson();
         cameraclass.getInstance()->ShowCamera();
     }
 
-    //static Person person;
-    
 
     static SkyBox sky;
     sky.ShowSky();
-
+    
     static World DrawWorld;
     DrawWorld.DrawCoordinate();
     DrawWorld.DrawTestMaze();
 
+    // Cylinder *testCylinder = new Cylinder(Point(2,2,0),0.05,0.5,50);
+    // testCylinder->render();
+    // delete testCylinder;
+
+    Cube *testcube = new Cube(0.05,0.05,-0.05);
+    testcube->render(0.1,0.1,-0.05);
+    delete testcube;
+
+    // Ball *testBall = new Ball(Point(0.05,0.05,0.05),0.05,50,50);
+    // testBall->render();
+    // delete testBall;
+
     glPopMatrix();
     glutSwapBuffers();
-    Sleep(10);
+    Sleep(20);
 }
 
 int main(int argc, char **argv)

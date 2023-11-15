@@ -5,9 +5,9 @@
     
 // }
 
-void Person::Person()
+Person::Person()
 {
-    this->head=new Ball(Point(50,50,-90),10,30,30);
+    this->head=new Ball(Point(5,5,-9),10.0f,30,30);
     this->Body=new Cylinder(Point(50,50,-40),10.0f,80,30);
     this->leftArm=new Cylinder(Point(40,50,-57.5),10.0f,45,30);
     this->rightArm=new Cylinder(Point(60,50,-57.5),10.0f,45,30);
