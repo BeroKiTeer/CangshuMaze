@@ -2,13 +2,18 @@
 #include <iostream>
 #include <vector>
 #include "config.h"
-class Person {
+#include"cylinder.h"
+#include"transform.h"
+#include"ball.h"
+#include"camera.h"
+class Person:public Cylinder 
+{
 public:    
-    Person() = default;
+    Person();
     ~Person() = default;
 
     void draw();
-    void move(double delx,double delz);//移动
+    void move(double delx,double dely);//移动
     void makeMatch(double topx, double topy, double bottomx, double bottomy,
     double matchWidth, double topd, double bottomd, std::vector <Point> &res);
     //其实就是画圆柱，用于创建一个特定部分（比如腿、手臂等）的3D模型
@@ -25,17 +30,24 @@ public:
     //：一个顶部圆柱体和一个底部圆柱体。
     
     void makeBody();//创建角色身体
-    void initInd(const std::vector <Point> &leftLeg, const std::vector <Point> &rightLeg,
-	const std::vector <Point> &leftArm, const std::vector <Point> &rightArm);
+    // void initInd(const std::vector <Point> &leftLeg, const std::vector <Point> &rightLeg,
+	// const std::vector <Point> &leftArm, const std::vector <Point> &rightArm);
 
     //移动时的动作
-    void rotateIndLeftLeg(std::vector <Point> &v, double angle);
-    void rotateIndRightLeg(std::vector <Point> &v, double angle);
-    void rotateIndLeftArm(std::vector <Point> &v, double angle);
-    void rotateIndRightArm(std::vector <Point> &v, double angle);
+    void rotateIndLeftLeg(double angle);
+    void rotateIndRightLeg(double angle);
+    void rotateIndLeftArm(double angle);
+    void rotateIndRightArm(double angle);
     void swingIndArm(double angle, double depth);
     void swingIndLeg(double angle, double depth);
     void bodyTranslateY(double delta);
+    void bodyTranslateX(double delta);
+
+    void actRotateLoop(int id);     //处理角色或对象的旋转动画 用于glutTimerFunc的回调函数
+    
+    Cylinder *leftLeg, *rightLeg, *leftArm, *rightArm,*Body;
+    Ball* head;
+
 
 protected:
     bool visable = true;
@@ -48,5 +60,5 @@ private:
     //人物属性
     double bodyWidth = 3, bodyHeight = 100, armStepWidth = 20,
     legStepWidth = 15, armLongerThanLeg = 10;
-    std::vector<Point> leftLeg, rightLeg, leftArm, rightArm;
+
 };

@@ -1,6 +1,5 @@
 #pragma once
 #include <cmath>
-#include "ball.h"
 #include "line.h"
 #include "circle.h"
 typedef unsigned int UINT;
@@ -24,6 +23,7 @@ struct Point2d{
     Point2d():x(0.0),y(0.0){};
     Point2d(double x, double y):x(x),y(y){};
 };
+<<<<<<< HEAD
 
 //编译会出错，只能定义常量
 //mingw-make clean之后看看结果
@@ -34,5 +34,9 @@ const UINT WindowsWidth = 800;
 const UINT WindowsHeight = 800;
 const UINT SmallMapSizeINT = 400;
 const double SmallMapSizeDouble = 10.0;
+=======
+const UINT WindowsWidth = 800;
+const UINT WindowsHeight = 800;
+>>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 #define ACTCOLOR WHITE
 #define GROUNDCOLOR RED

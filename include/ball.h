@@ -1,21 +1,18 @@
 #pragma once
 #include <vector>
 #include <GL\gl.h>
-
+#include <GL\glut.h>
+#include "config.h"
 class Ball {
 public:
-    Ball();
-    Ball(GLfloat radius, GLint segments);
-
-    void generateVertices();
+    Ball() = default;
+    Ball(Point P,GLfloat radius, GLint slices,GLint stacks);
 
     void render();
 
 private:
-    GLfloat radius;
-    GLint slices = 30;
-    GLint stacks = 30;
-
-    std::vector<GLfloat> vertices; // 顶点坐标
-    std::vector<GLfloat> normals;  // 法线
+    GLfloat radius;                 //半径
+    GLint slices = 30;              //经线数量
+    GLint stacks = 30;              //纬线数量
+    Point P;                        //球心坐标
 };
