@@ -5,10 +5,11 @@ SkyBox::SkyBox(){
         Surface[i] = 0;
     }
     //Top
+    SkyBoxPoint.push_back(Point(-Distance, Distance, -Distance));
     SkyBoxPoint.push_back(Point(Distance, Distance, -Distance));
     SkyBoxPoint.push_back(Point(Distance, -Distance, -Distance));
     SkyBoxPoint.push_back(Point(-Distance, -Distance, -Distance));
-    SkyBoxPoint.push_back(Point(-Distance, Distance, -Distance));
+    
     // //down
     SkyBoxPoint.push_back(Point(-Distance, Distance, Distance));
     SkyBoxPoint.push_back(Point(-Distance, -Distance, Distance));

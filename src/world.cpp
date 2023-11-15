@@ -20,7 +20,7 @@ void World::DrawCoordinate(){
     glEnd();
 }
 
-void World::DrawTestMaze(){
+void World::DrawTestMaze(int SmallMap){
     glEnable(GL_DEPTH_TEST);    
 	glEnable(GL_TEXTURE_2D); 
     if(flood == 0){
@@ -42,16 +42,16 @@ void World::DrawTestMaze(){
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 80.0f); glVertex3f(0.0f, 10.0f, 0.0f);
-	glTexCoord2f(80.0f, 80.0f); glVertex3f(10.0f, 10.0f, 0.0f);
-	glTexCoord2f(80.0f, 0.0f); glVertex3f(10.0f, 0.0f, 0.0f);
+	glTexCoord2f(80.0f, 80.0f); glVertex3f(10.0f*SmallMap, 10.0f, 0.0f);
+	glTexCoord2f(80.0f, 0.0f); glVertex3f(10.0f*SmallMap, 0.0f, 0.0f);
 	glEnd();
     //画墙板
     glBindTexture(GL_TEXTURE_2D, wall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 0.0f, -0.5f);
-	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f, 0.0f, -0.5f);
-	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f, 0.0f, 0.0f);
+	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 0.0f, -0.5f);
+	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 0.0f, 0.0f);
 	glEnd();
     glBindTexture(GL_TEXTURE_2D, wall);
 	glBegin(GL_QUADS);
@@ -64,15 +64,15 @@ void World::DrawTestMaze(){
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 10.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 10.0f, -0.5f);
-	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f, 10.0f, -0.5f);
-	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f, 10.0f, 0.0f);
+	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 10.0f, -0.5f);
+	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 10.0f, 0.0f);
 	glEnd();
     glBindTexture(GL_TEXTURE_2D, wall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(10.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(10.0f, 0.0f, -0.5f);
-	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f, 10.0f, -0.5f);
-	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f, 10.0f, 0.0f);
+	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 10.0f, -0.5f);
+	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 10.0f, 0.0f);
 	glEnd();
     glDisable(GL_DEPTH_TEST);    
 	glDisable(GL_TEXTURE_2D); 

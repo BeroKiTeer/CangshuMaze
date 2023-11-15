@@ -16,7 +16,7 @@ public:
         flood = 0; wall = 0;
     };
     void DrawCoordinate();
-    void DrawTestMaze();
+    void DrawTestMaze(int SmallMap);
 private:
     VP CoordinatePoint;
     UINT flood, wall;
