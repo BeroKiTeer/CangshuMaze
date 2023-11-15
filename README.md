@@ -1,11 +1,7 @@
 # CangshuMaze
 A simple 3d maze game by OpenGL 
 
-<<<<<<< HEAD
 # 相机
-=======
-## 相机
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 
 在测试立方体下按1第一人称，按3第三人称
 
@@ -13,11 +9,7 @@ W S A D分别表示X坐标+-, Y坐标+-，Q E分别表示Z轴--，Z轴++
 
 鼠标按住左键后拖动可改变相机角度，滚轮放大或缩小
 
-<<<<<<< HEAD
 # 世界坐标系
-=======
-## 世界坐标系
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 
 红表示X轴，绿表示Y轴，蓝表示Z轴
 
