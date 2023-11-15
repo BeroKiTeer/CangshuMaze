@@ -12,11 +12,9 @@ extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
 GLuint SCENESPEED = 20;
 GLuint SCENEID = 0;
-static *person = new Person();
+// static Person *person = new Person();
 extern bool IsThirdPeople;
 extern RandomWallXOY wall;
-
-UINT TestCurbShaderID = 0;
 void renderScene()
 {
     glClearColor((float)(238/255.0), (float)(233/255.0), (float)(233/255.0), 0.0f);
@@ -24,9 +22,7 @@ void renderScene()
 
     //=====================================================================================
     glViewport(0,0,WindowsWidth,WindowsHeight);
-    //鍖哄煙1锛屼富鍦板浘
 
-    //鍒濆?嬪寲鐩告満锛屽敖閲忎笉鍔ㄤ笅闈?涓よ?屼唬鐮佷綅缃?
     Camera cameraclass;
     //相机函数必须使用getInstance()之后才能调用其他函数
     cameraclass.getInstance()->Init();
@@ -51,14 +47,13 @@ void renderScene()
     static World DrawWorld;
     DrawWorld.DrawTestMaze(1);
     DrawWorld.DrawCoordinate();
-    DrawWorld.DrawTestMaze();
 
     // Cylinder *testCylinder = new Cylinder(Point(2,2,0),0.05,0.5,50);
     // testCylinder->render();
     // delete testCylinder;
 
     Cube *testcube = new Cube(0.05,0.05,-0.05);
-    testcube->render(0.1,0.1,-0.05);
+    testcube->render_wall(0.1,0.1,-0.05);
     delete testcube;
 
     // Ball *testBall = new Ball(Point(0.05,0.05,-0.05),0.05,50,50);
@@ -69,7 +64,7 @@ void renderScene()
 
     //=====================================================================================
     glViewport(WindowsWidth, 0, SmallMapSizeINT, SmallMapSizeINT);
-    //鍖哄煙2锛屽皬鍦板浘
+
     Point2d TestCurbPos= cameraclass.getInstance()->getTestCurbPos2D();
     double TestCurbLong = cameraclass.getInstance()->getTestCurbLong();
     SmallMap::DrawMap(wall,TestCurbPos,TestCurbLong);
