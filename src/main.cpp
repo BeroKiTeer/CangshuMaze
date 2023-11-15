@@ -8,19 +8,22 @@
 #include "cube.h"
 extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
-// static Person person;
+GLuint SCENESPEED = 20;
+GLuint SCENEID = 0;
+
+static *person = new Person();
 
 void renderScene()
 {
     glClearColor((float)(238/255.0), (float)(233/255.0), (float)(233/255.0), 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    //åˆå§‹åŒ–ç›¸æœºï¼Œå°½é‡ä¸åŠ¨ä¸‹é¢ä¸¤è¡Œä»£ç ä½ç½®
+    //³õÊ¼»¯Ïà»ú£¬¾¡Á¿²»¶¯ÏÂÃæÁ½ÐÐ´úÂëÎ»ÖÃ
     Camera cameraclass;
-    //ç›¸æœºå‡½æ•°å¿…é¡»ä½¿ç”¨getInstance()ä¹‹åŽæ‰èƒ½è°ƒç”¨å…¶ä»–å‡½æ•°
+    //Ïà»úº¯Êý±ØÐëÊ¹ÓÃgetInstance()Ö®ºó²ÅÄÜµ÷ÓÃÆäËûº¯Êý
     cameraclass.getInstance()->Init();
 
-    //æ¨¡åž‹è®¾ç½®
+    //Ä£ÐÍÉèÖÃ
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glPushMatrix();
@@ -62,6 +65,15 @@ void renderScene()
     Sleep(20);
 }
 
+void sceneMoveLoop(int id)
+{
+    // person->move()
+    // person->draw();
+
+    glutPostRedisplay();
+    glutTimerFunc(SCENESPEED, sceneMoveLoop, id);
+}
+
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
@@ -77,6 +89,8 @@ int main(int argc, char **argv)
     glutMouseFunc(Listener::mouseClick);
     glutMotionFunc(Listener::mouseMotionListener);
 
+    //loop
+    // glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);
     glutMainLoop();
     return 0;
 }
@@ -86,61 +100,61 @@ int main(int argc, char **argv)
 // {
 //     std::cout << "Hello,world" << std::endl;
 
-//     //çª—å£
+//     //´°¿Ú
 //     glutInit(&argc,argv);
 //     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 //     glutInitWindowSize(W, H); 
 //     glutInitWindowPosition(0, 0);
 //     glutCreateWindow("Maze");
 
-//     //åˆå§‹åŒ–ï¼šåŠ è½½çº¹ç†è´´å›¾ï¼Œåˆå§‹åŒ–ç›¸æœºã€å¢™ã€åœ°æ¿ç­‰å…ƒç´ ï¼Œå»ºç«‹åœ°å›¾
+//     //³õÊ¼»¯£º¼ÓÔØÎÆÀíÌùÍ¼£¬³õÊ¼»¯Ïà»ú¡¢Ç½¡¢µØ°åµÈÔªËØ£¬½¨Á¢µØÍ¼
     
 
-//     //æ¸²æŸ“
+//     //äÖÈ¾
 //     glEnable(GL_TEXTURE_2D);
 //     glutDisplayFunc([](){
 //         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//         glDisable(GL_DEPTH_TEST);       //å…³é—­æ·±åº¦æµ‹è¯•ï¼Œå³ç¦æ­¢OpenGLå¯¹ç‰©ä½“çš„æ·±åº¦è¿›è¡Œæ£€æµ‹ã€‚è¿™æ˜¯åœ¨ç»˜åˆ¶ä¸€äº›ä¸éœ€è¦æ·±åº¦æŽ’åºçš„å¯¹è±¡æ—¶ä½¿ç”¨çš„ã€‚
-//         glLoadIdentity();   //é‡ç½®å½“å‰æ¨¡åž‹è§†å›¾çŸ©é˜µä¸ºå•ä½çŸ©é˜µ
+//         glDisable(GL_DEPTH_TEST);       //¹Ø±ÕÉî¶È²âÊÔ£¬¼´½ûÖ¹OpenGL¶ÔÎïÌåµÄÉî¶È½øÐÐ¼ì²â¡£ÕâÊÇÔÚ»æÖÆÒ»Ð©²»ÐèÒªÉî¶ÈÅÅÐòµÄ¶ÔÏóÊ±Ê¹ÓÃµÄ¡£
+//         glLoadIdentity();   //ÖØÖÃµ±Ç°Ä£ÐÍÊÓÍ¼¾ØÕóÎªµ¥Î»¾ØÕó
 //         /*
 //         glRotated(obvRotateY, 1, 0, 0);
 //         glRotated(obvRotateX, 0, 1, 0);
 //         */
-//         //åˆ†åˆ«å¯¹Xè½´å’ŒYè½´è¿›è¡Œæ—‹è½¬ã€‚ç”¨äºŽè°ƒæ•´è§†è§’æˆ–ç›¸æœºçš„æ–¹å‘ã€‚
-//         //addSky();æ¸²æŸ“å¤©ç©ºç›’
+//         //·Ö±ð¶ÔXÖáºÍYÖá½øÐÐÐý×ª¡£ÓÃÓÚµ÷ÕûÊÓ½Ç»òÏà»úµÄ·½Ïò¡£
+//         //addSky();äÖÈ¾Ìì¿ÕºÐ
 
-//         glEnable(GL_DEPTH_TEST);    //é‡æ–°å¯ç”¨æ·±åº¦æµ‹è¯•ï¼Œä»¥ç¡®ä¿æ¸²æŸ“çš„ç‰©ä½“æ ¹æ®å®ƒä»¬çš„æ·±åº¦ä½ç½®æ­£ç¡®æŽ’åºã€‚
+//         glEnable(GL_DEPTH_TEST);    //ÖØÐÂÆôÓÃÉî¶È²âÊÔ£¬ÒÔÈ·±£äÖÈ¾µÄÎïÌå¸ù¾ÝËüÃÇµÄÉî¶ÈÎ»ÖÃÕýÈ·ÅÅÐò¡£
 //         glLoadIdentity();
 //         glLineWidth(3);
-//         //updateObverse();æ›´æ–°OpenGLçš„è§‚å¯Ÿè§†è§’ï¼ˆè§†å›¾çŸ©é˜µï¼‰
-//         //addGround();  æ¸²æŸ“åœ°é¢
-//         //addWall();    æ¸²æŸ“å¢™
-//         //addActor();   æ¸²æŸ“è§’è‰²ï¼ˆPersonï¼‰
+//         //updateObverse();¸üÐÂOpenGLµÄ¹Û²ìÊÓ½Ç£¨ÊÓÍ¼¾ØÕó£©
+//         //addGround();  äÖÈ¾µØÃæ
+//         //addWall();    äÖÈ¾Ç½
+//         //addActor();   äÖÈ¾½ÇÉ«£¨Person£©
 
 //         // drawLine(-300, 0, 0, 300, 0, 0, WHITE);
 //         // drawLine(0, -300, 0, 0, 300, 0, WHITE);
 //         // drawLine(0, 0, -300, 0, 0, 300, WHITE);
-//         glutSwapBuffers();  //äº¤æ¢å‰åŽç¼“å†²åŒºï¼Œä»¥æ˜¾ç¤ºæœ€æ–°çš„æ¸²æŸ“ç»“æžœï¼Œä»Žè€Œå®Œæˆä¸€å¸§çš„æ¸²æŸ“ã€‚
+//         glutSwapBuffers();  //½»»»Ç°ºó»º³åÇø£¬ÒÔÏÔÊ¾×îÐÂµÄäÖÈ¾½á¹û£¬´Ó¶øÍê³ÉÒ»Ö¡µÄäÖÈ¾¡£
 //     }); 
-//     glutReshapeFunc([](int w,int h){//æ”¹å˜çª—å£å¤§å°æ—¶ä¿æŒå›¾å½¢æ¯”ä¾‹
+//     glutReshapeFunc([](int w,int h){//¸Ä±ä´°¿Ú´óÐ¡Ê±±£³ÖÍ¼ÐÎ±ÈÀý
 //         glViewport(0, 0, w, h);     
-//         //è®¾ç½®äº†OpenGLçš„è§†å£ï¼Œå‘Šè¯‰OpenGLå°†ç»˜åˆ¶çš„åŒºåŸŸé™å®šåœ¨çª—å£çš„å·¦ä¸‹è§’ï¼ˆ0,0ï¼‰åˆ°å³ä¸Šè§’ï¼ˆw,hï¼‰çš„åŒºåŸŸã€‚w å’Œ h æ˜¯æ–°çª—å£çš„å®½åº¦å’Œé«˜åº¦
-//         glMatrixMode(GL_PROJECTION);    //å°†OpenGLçš„çŸ©é˜µæ¨¡å¼åˆ‡æ¢ä¸ºæŠ•å½±çŸ©é˜µæ¨¡å¼
-//         glLoadIdentity();               //è¿™ä¸€è¡Œå°†å½“å‰çŸ©é˜µï¼ˆæŠ•å½±çŸ©é˜µï¼‰é‡ç½®ä¸ºå•ä½çŸ©é˜µ
+//         //ÉèÖÃÁËOpenGLµÄÊÓ¿Ú£¬¸æËßOpenGL½«»æÖÆµÄÇøÓòÏÞ¶¨ÔÚ´°¿ÚµÄ×óÏÂ½Ç£¨0,0£©µ½ÓÒÉÏ½Ç£¨w,h£©µÄÇøÓò¡£w ºÍ h ÊÇÐÂ´°¿ÚµÄ¿í¶ÈºÍ¸ß¶È
+//         glMatrixMode(GL_PROJECTION);    //½«OpenGLµÄ¾ØÕóÄ£Ê½ÇÐ»»ÎªÍ¶Ó°¾ØÕóÄ£Ê½
+//         glLoadIdentity();               //ÕâÒ»ÐÐ½«µ±Ç°¾ØÕó£¨Í¶Ó°¾ØÕó£©ÖØÖÃÎªµ¥Î»¾ØÕó
 
-//         gluPerspective(60, (double)w/h, 0.1, 500);//å®½é«˜æ¯”æ”¹ä¸ºå½“å‰å€¼ï¼Œè§†çº¿åŒºåŸŸä¸Žå±å¹•å¤§å°ä¸€è‡´ï¼›
+//         gluPerspective(60, (double)w/h, 0.1, 500);//¿í¸ß±È¸ÄÎªµ±Ç°Öµ£¬ÊÓÏßÇøÓòÓëÆÁÄ»´óÐ¡Ò»ÖÂ£»
 
-//         // if (openMap) {      //æ­£äº¤æŠ•å½±
+//         // if (openMap) {      //Õý½»Í¶Ó°
 //         //     glOrtho(-GZ*mapViewFac*w/h/F, GZ*mapViewFac*w/h/F,
 //         //     -GZ*mapViewFac/F, GZ*mapViewFac/F, 0.1, siteDistance);
-//         // } else {            //é€è§†æŠ•å½±
+//         // } else {            //Í¸ÊÓÍ¶Ó°
 //         //     gluPerspective(60, (double)w/h, 0.1, siteDistance);
 //         // }
 
 
 
-//         glMatrixMode(GL_MODELVIEW);     //å°†OpenGLçš„çŸ©é˜µæ¨¡å¼åˆ‡æ¢å›žæ¨¡åž‹è§†å›¾çŸ©é˜µæ¨¡å¼
-//         glLoadIdentity();     //å†æ¬¡å°†å½“å‰çŸ©é˜µï¼ˆæ¨¡åž‹è§†å›¾çŸ©é˜µï¼‰é‡ç½®ä¸ºå•ä½çŸ©é˜µï¼Œä»¥ç¡®ä¿æ¨¡åž‹è§†å›¾çŸ©é˜µçš„åˆå§‹çŠ¶æ€
+//         glMatrixMode(GL_MODELVIEW);     //½«OpenGLµÄ¾ØÕóÄ£Ê½ÇÐ»»»ØÄ£ÐÍÊÓÍ¼¾ØÕóÄ£Ê½
+//         glLoadIdentity();     //ÔÙ´Î½«µ±Ç°¾ØÕó£¨Ä£ÐÍÊÓÍ¼¾ØÕó£©ÖØÖÃÎªµ¥Î»¾ØÕó£¬ÒÔÈ·±£Ä£ÐÍÊÓÍ¼¾ØÕóµÄ³õÊ¼×´Ì¬
 //         W = w, H = h;
 //     });
 
@@ -149,9 +163,9 @@ int main(int argc, char **argv)
 
 //     //loop
 //     /*
-//     glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);  //å¤„ç†åœºæ™¯çš„ç§»åŠ¨æˆ–æ›´æ–°
-//     glutTimerFunc(ACTROTATESPEED, actRotateLoop, ACTROTATEID);      //å¤„ç†è§’è‰²æˆ–å¯¹è±¡çš„æ—‹è½¬åŠ¨ç”»
-//     glutTimerFunc(ACTORJUMPSPEED, actJumpLoop, ACTORJUMPID);        //äºŽå¤„ç†è§’è‰²æˆ–å¯¹è±¡çš„è·³è·ƒåŠ¨ç”»
+//     glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);  //´¦Àí³¡¾°µÄÒÆ¶¯»ò¸üÐÂ
+//     glutTimerFunc(ACTROTATESPEED, actRotateLoop, ACTROTATEID);      //´¦Àí½ÇÉ«»ò¶ÔÏóµÄÐý×ª¶¯»­
+//     glutTimerFunc(ACTORJUMPSPEED, actJumpLoop, ACTORJUMPID);        //ÓÚ´¦Àí½ÇÉ«»ò¶ÔÏóµÄÌøÔ¾¶¯»­
 //     */
 //     glutMainLoop();
 

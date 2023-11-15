@@ -22,9 +22,10 @@ void Cube::render(GLfloat x, GLfloat y, GLfloat z)
             exit(0);
         }
     }
-    glColor4f(1.0f, 1.0f, 1.0f,0.0f);  // 设置颜色
-    glTranslated(x,y,z);
+    // glColor4f(1.0, 1.0, 1.0,1.0);  // 设置颜色
+    
     glBindTexture(GL_TEXTURE_2D, texID);
+    glTranslated(x,y,z);
     glBegin(GL_QUADS);
     // 左面
     glTexCoord2f(0.0f, 0.0f);  glVertex3f(-cx, -cy, -cz);
@@ -57,7 +58,5 @@ void Cube::render(GLfloat x, GLfloat y, GLfloat z)
     glTexCoord2f(1.0f, 1.0f);  glVertex3f( cx,  cy, cz);
     glTexCoord2f(0.0f, 1.0f);  glVertex3f(-cx,  cy, cz);
     glEnd();
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_DEPTH_TEST);
 //     glPopMatrix();
 }

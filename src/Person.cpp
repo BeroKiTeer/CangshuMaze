@@ -13,12 +13,6 @@ Person::Person()
     this->rightArm=new Cylinder(Point(60,50,-57.5),10.0f,45,30);
     this->leftLeg=new Cylinder(Point(45,50,-17.5),5.0f,35,30);
     this->rightLeg=new Cylinder(Point(55,50,-17.5),5.0f,35,30);
-    head->render();
-    Body->render();
-    leftArm->render();
-    rightArm->render();
-    leftLeg->render();
-    rightLeg->render();
 }
 
 void Person::rotateIndLeftArm(double angle)
@@ -176,13 +170,13 @@ void Person::move(double delx,double dely)
 
 }
 
-// void Person::draw()
-// {
-//     head->render();
-//     Body->render();
-//     leftArm->render();
-//     rightArm->render();
-//     leftLeg->render();
-//     rightLeg->render();
-// }
+void Person::draw()
+{
+    head->render();
+    Body->render();
+    leftArm->render();
+    rightArm->render();
+    leftLeg->render();
+    rightLeg->render();
+}
 
