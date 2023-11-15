@@ -3,9 +3,14 @@
 #include "config.h"
 #include "transform.h"
 #include "shader.h"
+#include "sharedData.h"
 
 #define GLUT_WHEEL_UP 3
 #define GLUT_WHEEL_DOWN 4
+
+extern GLuint TextureWallID;
+extern GLuint TextureFloorID;
+extern GLuint TextureTextcurbID;
 
 class Camera{
 public:
@@ -17,7 +22,7 @@ public:
         DealyTime = 0;
         EnableCameraDistance = true;
         EnableCameraLastDistance = 1.0;
-        TestCurbShaderID = 0;
+        TestCurbShaderID = TextureWallID;
         scale = 0.4;
     };
     void DisableFirstPerson(){

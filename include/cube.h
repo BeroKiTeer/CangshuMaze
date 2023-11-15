@@ -1,9 +1,15 @@
 #pragma once
 #include <GL/gl.h>
 #include <vector>
+#include "sharedData.h"
 /*
 立方体父类，被地板类和墙类继承
 */
+
+extern GLuint TextureWallID;
+extern GLuint TextureFloorID;
+extern GLuint TextureTextcurbID;
+
 class Cube {
 public:
     Cube(GLfloat width,GLfloat height,GLfloat depth);

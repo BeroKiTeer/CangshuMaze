@@ -34,13 +34,6 @@ void Camera::ShowTestCurb(int SmallMap){
 void Camera::shaderTestCurb(VP& TestCurbPoint, int SmallMap){
     glEnable(GL_DEPTH_TEST);    
 	glEnable(GL_TEXTURE_2D); 
-    if(TestCurbShaderID == 0){
-        TestCurbShaderID = loadTexture("texture/wall.bmp");
-        if(TestCurbShaderID == 0){
-            std::cerr << "图片加载失败" << std::endl;
-            exit(0);
-        }
-    }
 
     VP Surface;
     Surface.push_back(TestCurbPoint[0]);

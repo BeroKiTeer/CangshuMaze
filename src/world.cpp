@@ -21,22 +21,8 @@ void World::DrawCoordinate(){
 void World::DrawTestMaze(int SmallMap){
     glEnable(GL_DEPTH_TEST);    
 	glEnable(GL_TEXTURE_2D); 
-    if(flood == 0){
-        flood = loadTexture("texture/floor.bmp");
-        if(flood == 0){
-            std::cout << "图片加载失败" << std::endl;
-            exit(0);
-        }
-    }
-    if(wall == 0){
-        wall = loadTexture("texture/wall.bmp");
-        if(wall == 0){
-            std::cout << "图片加载失败" << std::endl;
-            exit(0);
-        }
-    }
     //画地板
-    glBindTexture(GL_TEXTURE_2D, flood);
+    glBindTexture(GL_TEXTURE_2D, classflood);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 80.0f); glVertex3f(0.0f, 10.0f, 0.0f);
@@ -44,28 +30,28 @@ void World::DrawTestMaze(int SmallMap){
 	glTexCoord2f(80.0f, 0.0f); glVertex3f(10.0f*SmallMap, 0.0f, 0.0f);
 	glEnd();
     //画墙板
-    glBindTexture(GL_TEXTURE_2D, wall);
+    glBindTexture(GL_TEXTURE_2D, classwall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 0.0f, -0.5f);
 	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 0.0f, -0.5f);
 	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 0.0f, 0.0f);
 	glEnd();
-    glBindTexture(GL_TEXTURE_2D, wall);
+    glBindTexture(GL_TEXTURE_2D, classwall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 0.0f, -0.5f);
 	glTexCoord2f(15.0f, 1.0f); glVertex3f(0.0f, 10.0f, -0.5f);
 	glTexCoord2f(15.0f, 0.0f); glVertex3f(0.0f, 10.0f, 0.0f);
 	glEnd();
-    glBindTexture(GL_TEXTURE_2D, wall);
+    glBindTexture(GL_TEXTURE_2D, classwall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 10.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 10.0f, -0.5f);
 	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 10.0f, -0.5f);
 	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 10.0f, 0.0f);
 	glEnd();
-    glBindTexture(GL_TEXTURE_2D, wall);
+    glBindTexture(GL_TEXTURE_2D, classwall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(10.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(10.0f, 0.0f, -0.5f);

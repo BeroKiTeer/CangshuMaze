@@ -3,6 +3,11 @@
 #include<GL/glut.h>
 #include "transform.h"
 #include "shader.h"
+#include "sharedData.h"
+
+extern GLuint TextureWallID;
+extern GLuint TextureFloorID;
+extern GLuint TextureTextcurbID;
 
 class World{
 public:
@@ -13,13 +18,13 @@ public:
                 coordinate[i][0],coordinate[i][1],coordinate[i][2]
             ));
         }
-        flood = 0; wall = 0;
+        classflood = TextureFloorID; classwall = TextureWallID;
     };
     void DrawCoordinate();
     void DrawTestMaze(int SmallMap);
 private:
     VP CoordinatePoint;
-    UINT flood, wall;
+    GLuint classflood, classwall;
     //坐标系
     const float coordinate[4][3] =
     {

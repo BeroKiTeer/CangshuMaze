@@ -6,13 +6,37 @@
 #include "sky.h"
 #include "randomwall.h"
 #include "smallmap.h"
+#include "cube.h"
 
 extern bool IsThirdPeople;
 extern RandomWallXOY wall;
 
+extern GLuint TextureWallID;
+extern GLuint TextureFloorID;
+extern GLuint TextureTextcurbID;
+
 UINT TestCurbShaderID = 0;
 void renderScene()
 {
+    //加载渲染
+    glEnable(GL_DEPTH_TEST);    
+	glEnable(GL_TEXTURE_2D); 
+
+    if(TextureWallID == 0)
+        TextureWallID = loadTexture("texture/wall.bmp");
+    if(TextureFloorID == 0)
+        TextureFloorID = loadTexture("texture/floor.bmp");
+    if(TextureTextcurbID == 0)
+        TextureTextcurbID == loadTexture("texture/TestCurb.bmp");
+
+    if(!TextureWallID && !TextureFloorID && !TextureTextcurbID){
+        std::cout << "Load Picture failed" << std::endl;
+        exit(0);
+    }
+
+    glDisable(GL_DEPTH_TEST);    
+	glDisable(GL_TEXTURE_2D);
+
     glClearColor((float)(238/255.0), (float)(233/255.0), (float)(233/255.0), 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -24,7 +48,6 @@ void renderScene()
     Camera cameraclass;
     //相机函数必须使用getInstance()之后才能调用其他函数
     cameraclass.getInstance()->Init();
-
     //模型设置
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -46,6 +69,9 @@ void renderScene()
     DrawWorld.DrawTestMaze(1);
     DrawWorld.DrawCoordinate();
 
+    Cube cube(10.0, 10.0, 10.0);
+    cube.render_wall(1.0, 1.0, 0.0);
+
     glPopMatrix();
 
     //=====================================================================================
@@ -54,7 +80,6 @@ void renderScene()
     Point2d TestCurbPos= cameraclass.getInstance()->getTestCurbPos2D();
     double TestCurbLong = cameraclass.getInstance()->getTestCurbLong();
     SmallMap::DrawMap(wall,TestCurbPos,TestCurbLong);
-
     //=====================================================================================
     glViewport(WindowsWidth, WindowsHeight - SmallMapSizeINT, SmallMapSizeINT, SmallMapSizeINT);
     
@@ -68,6 +93,8 @@ void renderScene()
 
     cameraclass.getInstance()->ShowTestCurb(-1);
     DrawWorld.DrawTestMaze(-1);
+
+    cube.render_wall(1.0, 1.0, 0.0);
 
     glPopMatrix();
 
