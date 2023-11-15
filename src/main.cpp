@@ -8,7 +8,7 @@
 #include "cube.h"
 extern bool IsThirdPeople;
 UINT TestCurbShaderID = 0;
-
+// static Person person;
 
 void renderScene()
 {
@@ -27,9 +27,7 @@ void renderScene()
     glLoadIdentity();
     
     if(IsThirdPeople){
-        Cube *testcube = new Cube(0.05,0.05,0.05);
-        testcube->render(0.05,0.05,-0.05);
-        delete testcube;
+        
         cameraclass.getInstance()->DisableFirstPerson();
         cameraclass.getInstance()->ShowTestCurb();
     }
@@ -38,7 +36,7 @@ void renderScene()
         cameraclass.getInstance()->ShowCamera();
     }
 
-    static Person person;
+
 
     static SkyBox sky;
     sky.ShowSky();
@@ -47,9 +45,13 @@ void renderScene()
     DrawWorld.DrawCoordinate();
     DrawWorld.DrawTestMaze();
 
-    Cylinder *testCylinder = new Cylinder(Point(0.05,0.05,0.05),0.05,0.1,50);
-    testCylinder->render();
-    delete testCylinder;
+    // Cylinder *testCylinder = new Cylinder(Point(2,2,0),0.05,0.5,50);
+    // testCylinder->render();
+    // delete testCylinder;
+
+    Cube *testcube = new Cube(0.05,0.05,-0.05);
+    testcube->render(0.1,0.1,-0.05);
+    delete testcube;
 
     // Ball *testBall = new Ball(Point(0.05,0.05,0.05),0.05,50,50);
     // testBall->render();
