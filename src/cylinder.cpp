@@ -58,6 +58,7 @@ void Cylinder::render()
     //     glVertex3d(point.x, point.y, point.z);
     // }
     // glEnd();
+    glPushMatrix();
     glTranslatef(this->p.x,this->p.y,this->p.z);
     
 	// 绘制圆柱侧面
@@ -68,4 +69,5 @@ void Cylinder::render()
 	gluCylinder(quadric, radius, radius, height, 50, 50);  // 底面和顶面半径均为1.0，高度为2.0，细分50x50
 	gluDeleteQuadric(quadric);
 	
+    glPopMatrix();
 }
