@@ -7,12 +7,12 @@
 
 Person::Person()
 {
-    this->head=new Ball(Point(5,5,-9),10.0f,30,30);
-    this->Body=new Cylinder(Point(50,50,-40),10.0f,80,30);
-    this->leftArm=new Cylinder(Point(40,50,-57.5),10.0f,45,30);
-    this->rightArm=new Cylinder(Point(60,50,-57.5),10.0f,45,30);
-    this->leftLeg=new Cylinder(Point(45,50,-17.5),5.0f,35,30);
-    this->rightLeg=new Cylinder(Point(55,50,-17.5),5.0f,35,30);
+    this->head=new Ball(Point(5,5,-9),1.0f,3,3);
+    this->Body=new Cylinder(Point(5,5,-4),1.0f,8,3);
+    this->leftArm=new Cylinder(Point(4,5,-5.75),1.0f,4.5,3);
+    this->rightArm=new Cylinder(Point(6.0,5.0,-5.75),1.0f,4.5,3);
+    this->leftLeg=new Cylinder(Point(4.5,5.0,-1.75),0.5f,3.5,3.0);
+    this->rightLeg=new Cylinder(Point(5.5,5.0,-1.75),0.5f,3.5,3.0);
     head->render();
     Body->render();
     leftArm->render();

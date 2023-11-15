@@ -36,7 +36,7 @@ void renderScene()
         cameraclass.getInstance()->ShowCamera();
     }
 
-
+    static Person person;
     static SkyBox sky;
     sky.ShowSky();
     
