@@ -28,14 +28,18 @@ void renderScene()
     if(IsThirdPeople){
         cameraclass.getInstance()->DisableFirstPerson();
         cameraclass.getInstance()->ShowTestCurb();
-
+        // static Ball ball(Point(0,0,0),30,30);
+        // ball.render();
+        // static Cylinder cylinder(Point(0,0,0),100.0f,45,30);
+        // cylinder.render();
     }
     else{
         cameraclass.getInstance()->EnableFirstPerson();
         cameraclass.getInstance()->ShowCamera();
     }
 
-    static Person person;
+    //static Person person;
+    
 
     static SkyBox sky;
     sky.ShowSky();
