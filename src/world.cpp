@@ -1,21 +1,6 @@
 #include "world.h"
 
-<<<<<<< HEAD
 void World::DrawCoordinate(){
-=======
-World::World()
-{
-    for(int i = 0; i < 4; i++){
-        CoordinatePoint.push_back(Point(
-            coordinate[i][0],coordinate[i][1],coordinate[i][2]
-        ));
-    }
-    flood = 0; wall = 0;
-}
-
-void World::DrawCoordinate()
-{
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
     glBegin(GL_LINES);
     glColor3f(1.0f,0.0f,0.0f);
     for(int i=0; i<3; ++i) {
@@ -33,12 +18,7 @@ void World::DrawCoordinate()
     glEnd();
 }
 
-<<<<<<< HEAD
 void World::DrawTestMaze(int SmallMap){
-=======
-void World::DrawTestMaze()
-{
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
     glEnable(GL_DEPTH_TEST);    
 	glEnable(GL_TEXTURE_2D); 
     if(flood == 0){
@@ -60,26 +40,16 @@ void World::DrawTestMaze()
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 80.0f); glVertex3f(0.0f, 10.0f, 0.0f);
-<<<<<<< HEAD
 	glTexCoord2f(80.0f, 80.0f); glVertex3f(10.0f*SmallMap, 10.0f, 0.0f);
 	glTexCoord2f(80.0f, 0.0f); glVertex3f(10.0f*SmallMap, 0.0f, 0.0f);
-=======
-	glTexCoord2f(80.0f, 80.0f); glVertex3f(10.0f, 10.0f, 0.0f);
-	glTexCoord2f(80.0f, 0.0f); glVertex3f(10.0f, 0.0f, 0.0f);
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 	glEnd();
     //画墙板
     glBindTexture(GL_TEXTURE_2D, wall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 0.0f, -0.5f);
-<<<<<<< HEAD
 	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 0.0f, -0.5f);
 	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 0.0f, 0.0f);
-=======
-	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f, 0.0f, -0.5f);
-	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f, 0.0f, 0.0f);
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 	glEnd();
     glBindTexture(GL_TEXTURE_2D, wall);
 	glBegin(GL_QUADS);
@@ -92,25 +62,15 @@ void World::DrawTestMaze()
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 10.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 10.0f, -0.5f);
-<<<<<<< HEAD
 	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 10.0f, -0.5f);
 	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 10.0f, 0.0f);
-=======
-	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f, 10.0f, -0.5f);
-	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f, 10.0f, 0.0f);
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 	glEnd();
     glBindTexture(GL_TEXTURE_2D, wall);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(10.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(10.0f, 0.0f, -0.5f);
-<<<<<<< HEAD
 	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f*SmallMap, 10.0f, -0.5f);
 	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f*SmallMap, 10.0f, 0.0f);
-=======
-	glTexCoord2f(15.0f, 1.0f); glVertex3f(10.0f, 10.0f, -0.5f);
-	glTexCoord2f(15.0f, 0.0f); glVertex3f(10.0f, 10.0f, 0.0f);
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 	glEnd();
     glDisable(GL_DEPTH_TEST);    
 	glDisable(GL_TEXTURE_2D); 

@@ -9,7 +9,6 @@
 
 class Camera{
 public:
-<<<<<<< HEAD
     Camera(){
         TestCurbX = 0.0; TestCurbY = 0.0; TestCurbZ=0.0;
         angleY = 15.0; angleZ=-90.0; CameraDistance = 1.0;
@@ -21,11 +20,6 @@ public:
         TestCurbShaderID = 0;
         scale = 0.4;
     };
-=======
-    Camera();
-
-    ~Camera() = default;
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
     void DisableFirstPerson(){
         if(EnableCameraDistance == false){
             CameraDistance = EnableCameraLastDistance;
@@ -39,11 +33,7 @@ public:
         EnableCameraDistance = false;
         CameraDistance = 0.1;
     }
-<<<<<<< HEAD
     void ShowTestCurb(int SmallMap);
-=======
-    void ShowTestCurb();
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
     void ShowCamera();
     static Camera* getInstance(){
         static Camera instance;
@@ -64,13 +54,6 @@ public:
     static void OCameraMouseClick(int button, int state, int x, int y){
         getInstance()->CameraMouseClick(button,state,x,y);
     }
-<<<<<<< HEAD
-=======
-
-    static void OCameraMotion(int x, int y){
-        getInstance()->CameraMotion(x,y);
-    }
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 
     static void OCameraMotion(int x, int y){
         getInstance()->CameraMotion(x,y);
@@ -91,11 +74,7 @@ private:
     void CameraKeyboard(unsigned char key, int x, int y);
     void CameraMouseClick(int btu, int state, int x, int y);
     void CameraMotion(int x, int y);
-<<<<<<< HEAD
     void shaderTestCurb(VP& TestCurbPoint, int SmallMap);
-=======
-    void shaderTestCurb(VP& TestCurbPoint);
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
 private:
     double TestCurbX,TestCurbY,TestCurbZ;   //测试立方体坐标
     double angleY, angleZ, CameraDistance;  //相机旋转角度与位置
@@ -107,10 +86,7 @@ private:
     double EnableCameraLastDistance;        //第1人称是的相机距离
     VP TestCurbPoint, TestCurbShaderPoint;                       //测试立方体
     UINT TestCurbShaderID;                  //测试立方体渲染ID
-<<<<<<< HEAD
     double scale;                           //测试立方体的缩放
-=======
->>>>>>> e6b1af9fa60f40ba4647fda3ef89bcaab7e89af8
     //测试立方体点集信息
     const float TestCurb[8][3] = 
     { 
