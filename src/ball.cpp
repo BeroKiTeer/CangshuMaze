@@ -6,7 +6,9 @@ Ball::Ball(Point P, GLfloat radius, GLint slices,GLint stacks):
 
 void Ball::render() 
 {
-	// 绘制球体
-	glColor3f(1.0, 1.0, 0.0);  // 设置颜色
+	glEnable(GL_DEPTH_TEST);
+	// 绘制球体 	
+	glTranslatef(this->P.x,this->P.y,this->P.z);
+	glColor3f(0.0, 0.0, 0.0);  // 设置颜色
 	glutSolidSphere(radius, 50, 50);  // 半径为1.0的球体，细分50x50
 }

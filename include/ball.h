@@ -3,10 +3,12 @@
 #include <GL\gl.h>
 #include <GL\glut.h>
 #include "config.h"
+#include "transform.h"
 class Ball {
 public:
     Ball() = default;
     Ball(Point P,GLfloat radius, GLint slices,GLint stacks);
+    ~Ball() = default;
 
     void render();
 

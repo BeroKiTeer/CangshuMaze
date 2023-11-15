@@ -53,7 +53,7 @@ void renderScene()
     testcube->render(0.1,0.1,-0.05);
     delete testcube;
 
-    // Ball *testBall = new Ball(Point(0.05,0.05,0.05),0.05,50,50);
+    // Ball *testBall = new Ball(Point(0.05,0.05,-0.05),0.05,50,50);
     // testBall->render();
     // delete testBall;
 
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowPosition(0,0);
     glutInitWindowSize(WindowsWidth,WindowsHeight);
-    glutCreateWindow("OpenGL-Experiment");
+    glutCreateWindow("MazeGame");
 
     glutDisplayFunc(renderScene);
     glutIdleFunc(renderScene);

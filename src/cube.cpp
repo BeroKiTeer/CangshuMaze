@@ -8,6 +8,10 @@ void Cube::render(GLfloat x, GLfloat y, GLfloat z)
 {
     /*世界坐标系下显示立方体*/
     // glPushMatrix();
+    glEnable(GL_DEPTH_TEST);    
+	glEnable(GL_TEXTURE_2D); 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     double cx = (width)/2.0;
     double cy = (depth)/2.0;
     double cz = (height)/2.0;
@@ -18,6 +22,8 @@ void Cube::render(GLfloat x, GLfloat y, GLfloat z)
             exit(0);
         }
     }
+    glColor4f(1.0f, 1.0f, 1.0f,0.0f);  // 设置颜色
+    glTranslated(x,y,z);
     glBindTexture(GL_TEXTURE_2D, texID);
     glBegin(GL_QUADS);
     // 左面
@@ -51,5 +57,7 @@ void Cube::render(GLfloat x, GLfloat y, GLfloat z)
     glTexCoord2f(1.0f, 1.0f);  glVertex3f( cx,  cy, cz);
     glTexCoord2f(0.0f, 1.0f);  glVertex3f(-cx,  cy, cz);
     glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_DEPTH_TEST);
 //     glPopMatrix();
 }
