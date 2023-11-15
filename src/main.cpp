@@ -69,8 +69,11 @@ void renderScene()
     DrawWorld.DrawTestMaze(1);
     DrawWorld.DrawCoordinate();
 
-    Cube cube(10.0, 10.0, 10.0);
-    cube.render_wall(1.0, 1.0, 0.0);
+    Cube cube1(1.0, 1.0, 0.0, 3.0, 0.25, 0.5);
+    cube1.render_wall(1);
+
+    Cube cube2(5.0, 5.0, 0.0, 0.25, 3.0, 0.5);
+    cube2.render_wall(1);
 
     glPopMatrix();
 
@@ -94,7 +97,8 @@ void renderScene()
     cameraclass.getInstance()->ShowTestCurb(-1);
     DrawWorld.DrawTestMaze(-1);
 
-    cube.render_wall(1.0, 1.0, 0.0);
+    cube1.render_wall(-1);
+    cube2.render_wall(-1);
 
     glPopMatrix();
 
@@ -108,7 +112,7 @@ void sceneMoveLoop(int id)
     // person->draw();
 
     glutPostRedisplay();
-    glutTimerFunc(SCENESPEED, sceneMoveLoop, id);
+    // glutTimerFunc(SCENESPEED, sceneMoveLoop, id);
 }
 
 int main(int argc, char **argv)
