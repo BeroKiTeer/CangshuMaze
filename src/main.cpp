@@ -69,11 +69,14 @@ void renderScene()
     DrawWorld.DrawTestMaze(1);
     DrawWorld.DrawCoordinate();
 
-    Cube cube1(1.0, 1.0, 0.0, 3.0, 0.25, 0.5);
-    cube1.render_wall(1);
+    vector<Cube> WallGroup;
+    for(auto i : wall.VWall){
+        WallGroup.push_back(Cube(i.DrawX, i.DrawY, 0.0, i.LongX, i.LongY, 0.5));
+    }
 
-    Cube cube2(5.0, 5.0, 0.0, 0.25, 3.0, 0.5);
-    cube2.render_wall(1);
+    for(auto i : WallGroup){
+        i.render_wall(1);
+    }
 
     glPopMatrix();
 
@@ -97,8 +100,9 @@ void renderScene()
     cameraclass.getInstance()->ShowTestCurb(-1);
     DrawWorld.DrawTestMaze(-1);
 
-    cube1.render_wall(-1);
-    cube2.render_wall(-1);
+    for(auto i : WallGroup){
+        i.render_wall(-1);
+    }
 
     glPopMatrix();
 
@@ -117,7 +121,7 @@ void sceneMoveLoop(int id)
 
 int main(int argc, char **argv)
 {
-
+    wall.RandomWall();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowPosition(0,0);

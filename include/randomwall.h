@@ -22,49 +22,18 @@ struct chunk {
     }
 };
 
-struct WallXOZ{
-    double DrawX, DrawY; //画点位置
-    double LongX;    //x轴长度
-    double LongY;   //y轴长度
-    //p2永远是靠近原点的
-    Point2d p1;
-    Point2d p2;
-    double Width;
-    WallXOZ(Point2d p1, Point2d p2):p1(p1),p2(p2),Width(0.075){
-        CalcDraw();
-    }
-    WallXOZ(Point2d p1, Point2d p2, double Width):p1(p1),p2(p2),Width(Width){
-        CalcDraw();
-    }
-    WallXOZ(){}
-private:
-    void CalcDraw(){
-        if(p1.x != p2.x){
-            LongX = p1.x - p2.x + Width*2;
-            LongY = Width*2;
-            DrawX = p2.x - Width;
-            DrawY = p2.y - Width;
-        }
-        else{
-            LongY = p1.y - p2.y + Width*2;
-            LongX = Width*2;
-            DrawX = p2.x - Width;
-            DrawY = p2.y - Width;
-        }
-    }
-};
-
 class RandomWallXOY{
 public:
-    vector<WallXOZ> VWall;
-    RandomWallXOY(){
-        genWall();
-        adjectWallPos();
-    }
+    vector<WallXOY> VWall;
+    RandomWallXOY(){}
     void showWall(){
         for(auto i : VWall){
             std::cout << i.DrawX << " " << i.DrawY << std::endl;
         }
+    }
+    void RandomWall(){
+        genWall();
+        adjectWallPos();
     }
 private:
     int  bczfind(int x);

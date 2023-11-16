@@ -66,18 +66,18 @@ void RandomWallXOY::genWall()
         //选取靠近原点0,0的点
         if(p.p1.x != p.p2.x){
             if(p.p1.x > p.p2.x){
-                VWall.push_back(WallXOZ(p.p1,p.p2));
+                VWall.push_back(WallXOY(p.p1,p.p2));
             }
             else{
-                VWall.push_back(WallXOZ(p.p2,p.p1));
+                VWall.push_back(WallXOY(p.p2,p.p1));
             }
         }
         else{
             if(p.p1.y > p.p2.y){
-                VWall.push_back(WallXOZ(p.p1,p.p2));
+                VWall.push_back(WallXOY(p.p1,p.p2));
             }
             else{
-                VWall.push_back(WallXOZ(p.p2,p.p1));
+                VWall.push_back(WallXOY(p.p2,p.p1));
             }
         }
 	}
