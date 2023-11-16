@@ -62,6 +62,7 @@ void renderScene()
         cameraclass.getInstance()->ShowCamera();
     }
 
+    
     static SkyBox sky;
     sky.ShowSky();
 

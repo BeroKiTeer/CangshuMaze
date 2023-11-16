@@ -7,12 +7,30 @@
 
 Person::Person()
 {
-    this->head=new Ball(Point(50,50,-90),10,30,30);
-    this->Body=new Cylinder(Point(50,50,-40),10.0f,80,30);
-    this->leftArm=new Cylinder(Point(40,50,-57.5),10.0f,45,30);
-    this->rightArm=new Cylinder(Point(60,50,-57.5),10.0f,45,30);
-    this->leftLeg=new Cylinder(Point(45,50,-17.5),5.0f,35,30);
-    this->rightLeg=new Cylinder(Point(55,50,-17.5),5.0f,35,30);
+    this->head=new Ball(Point(0.25,0.2,-0.275),0.01,0.1,30);
+    this->Body=new Cylinder(Point(0.25,0.2,-0.2),0.01,0.1,50);;
+    this->leftArm=new Cylinder(Point(0.2,0.2,-0.2),0.01,0.1,50);
+    this->rightArm=new Cylinder(Point(0.3,0.2,-0.2),0.01,0.1,50);
+    this->leftLeg=new Cylinder(Point(0.2,0.2,-0.1),0.01,0.1,50);
+    this->rightLeg=new Cylinder(Point(0.3,0.2,-0.1),0.01,0.1,50);
+    this->head=new Ball(Point(0.5,0.5,-0.9),0.1f,30,30);
+    this->Body=new Cylinder(Point(0.5,0.5,-0.4),1.0f,8,30);
+    this->leftArm=new Cylinder(Point(0.4,0.5,-0.575),0.1f,0.45,30);
+    this->rightArm=new Cylinder(Point(0.6,0.5,-0.575),0.1f,0.45,30);
+    this->leftLeg=new Cylinder(Point(0.45,0.5,-0.175),0.05f,0.35,30);
+    this->rightLeg=new Cylinder(Point(0.55,0.5,-0.175),0.05f,0.35,30);
+    head->render();
+    Body->render();
+    leftArm->render();
+    rightArm->render();
+    leftLeg->render();
+    rightLeg->render();
+    delete this->head;
+    delete this->Body;
+    delete this->leftArm;
+    delete this->rightArm;
+    delete this->leftLeg;
+    delete this->rightLeg;
 }
 
 void Person::rotateIndLeftArm(double angle)
