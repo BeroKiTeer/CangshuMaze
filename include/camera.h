@@ -4,6 +4,9 @@
 #include "transform.h"
 #include "shader.h"
 #include "sharedData.h"
+#include "listener.h"
+#include "randomwall.h"
+#include <vector>
 
 #define GLUT_WHEEL_UP 3
 #define GLUT_WHEEL_DOWN 4
@@ -11,32 +14,26 @@
 extern GLuint TextureWallID;
 extern GLuint TextureFloorID;
 extern GLuint TextureTextcurbID;
+extern RandomWallXOY wall;
 
-class Camera{
+class Camera : public Listener 
+{
 public:
-    Camera(){
-        TestCurbX = 0.0; TestCurbY = 0.0; TestCurbZ=0.0;
-        angleY = 15.0; angleZ=-90.0; CameraDistance = 1.0;
-        LMouseDown = false, RMouseDown = false;
-        LMouseDownX = 0, LMouseDownY = 0;
-        DealyTime = 0;
-        EnableCameraDistance = true;
-        EnableCameraLastDistance = 1.0;
-        TestCurbShaderID = TextureWallID;
-        scale = 0.4;
-    };
+    Camera();
+    ~Camera()=default;
+
     void DisableFirstPerson(){
-        if(EnableCameraDistance == false){
-            CameraDistance = EnableCameraLastDistance;
+        if(get_EnableCameraDistance() == false){
+            set_CameraDistance(get_EnableCameraLastDistance());
         }
-        EnableCameraDistance = true;
+        set_EnableCameraDistance(true);
     }
     void EnableFirstPerson(){
-        if(EnableCameraDistance){
-            EnableCameraLastDistance = CameraDistance;
+        if(get_EnableCameraDistance()){
+            set_EnableCameraLastDistance(get_CameraDistance());
         }
-        EnableCameraDistance = false;
-        CameraDistance = 0.1;
+        set_EnableCameraDistance(false);
+        set_CameraDistance(0.1);
     }
     void ShowTestCurb(int SmallMap);
     void ShowCamera();
@@ -65,62 +62,59 @@ public:
     }
 
     Point2d getTestCurbPos2D(){
-        return Point2d(TestCurbX, TestCurbY);
+        return Point2d(get_TestCurbX(), get_TestCurbY());
     }
 
     Point getTestCurbPos3D(){
-        return Point(TestCurbX, TestCurbY, TestCurbZ);
+        return Point(get_TestCurbX(), get_TestCurbY() , get_TestCurbZ());
     }
 
     double getTestCurbLong(){
-        return 0.4*scale;
+        return 0.08*scale;
     }
 private:
     void CameraKeyboard(unsigned char key, int x, int y);
     void CameraMouseClick(int btu, int state, int x, int y);
     void CameraMotion(int x, int y);
     void shaderTestCurb(VP& TestCurbPoint, int SmallMap);
+    OrientWASD CanMove(
+        const RandomWallXOY& wall, const Point2d& point, 
+        double Longx, double Longy
+    );
 private:
-    double TestCurbX,TestCurbY,TestCurbZ;   //测试立方体坐标
-    double angleY, angleZ, CameraDistance;  //相机旋转角度与位置
-    bool LMouseDown, RMouseDown;            //鼠标左键按下
-    int LMouseDownX, LMouseDownY;           //鼠标右键按下的鼠标的位置
-    int LCurrentMouseX,LCurrentMouseY;      //鼠标右键按下时当前鼠标的位置
-    UINT DealyTime;                         //鼠标拖动旋转停歇时间
-    bool EnableCameraDistance;              //是否启用第一人称
-    double EnableCameraLastDistance;        //第1人称是的相机距离
-    VP TestCurbPoint, TestCurbShaderPoint;                       //测试立方体
-    UINT TestCurbShaderID;                  //测试立方体渲染ID
-    double scale;                           //测试立方体的缩放
+    // double TestCurbX,TestCurbY,TestCurbZ;      //测试立方体坐标
+    // VP TestCurbPoint, TestCurbShaderPoint;                       //测试立方体
+    // UINT TestCurbShaderID;                  //测试立方体渲染ID
+    // double scale;                           //测试立方体的缩放
     //测试立方体点集信息
-    const float TestCurb[8][3] = 
-    { 
-        0.0f, 0.0f, 0.0f,  //0
-        0.4f, 0.0f, 0.0f,  //1
-        0.4f, 0.0f, -0.4f, //2
-        0.0f, 0.0f, -0.4f, //3
-        0.0f, 0.4f, 0.0f,  //4
-        0.4f, 0.4f, 0.0f,  //5
-        0.4f, 0.4f, -0.4f, //6
-        0.0f, 0.4f, -0.4f  //7
-    }; 
+    // const float TestCurb[8][3] = 
+    // { 
+    //     0.00f, 0.00f, 0.00f,  //0
+    //     0.08f, 0.00f, 0.00f,  //1
+    //     0.08f, 0.00f, -0.08f, //2
+    //     0.00f, 0.00f, -0.08f, //3
+    //     0.00f, 0.08f, 0.00f,  //4
+    //     0.08f, 0.08f, 0.00f,  //5
+    //     0.08f, 0.08f, -0.08f, //6
+    //     0.00f, 0.08f, -0.08f  //7
+    // }; 
 
-    //测试立方体连接线段
-    const GLint TestCurbList[12][2] = 
-    { 
-        {0, 1},    
-        {3, 2},    
-        {7, 6},    
-        {4, 5},    
-        {0, 3},    
-        {1, 2},    
-        {5, 6},    
-        {4, 7},
-        {0, 4},
-        {1, 5},
-        {7, 3},
-        {2, 6}
-    };
+    // //测试立方体连接线段
+    // const GLint TestCurbList[12][2] = 
+    // { 
+    //     {0, 1},    
+    //     {3, 2},    
+    //     {7, 6},    
+    //     {4, 5},    
+    //     {0, 3},    
+    //     {1, 2},    
+    //     {5, 6},    
+    //     {4, 7},
+    //     {0, 4},
+    //     {1, 5},
+    //     {7, 3},
+    //     {2, 6}
+    // };
 
     
 };
