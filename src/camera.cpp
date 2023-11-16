@@ -95,6 +95,200 @@ void Camera::shaderTestCurb(VP& TestCurbPoint, int SmallMap){
 	glDisable(GL_TEXTURE_2D); 
 }
 
+OrientWASD Camera::CanMove(
+    const RandomWallXOY& wall, const Point2d& point, 
+    double Longx, double Longy
+){
+    double leftUpX = point.x + Longx, leftUpY = point.y + Longy;
+    double leftDownX = point.x + Longx, leftDownY = point.y;
+    double RightUpX = point.x, RightUpY = point.y + Longy;
+    double RightDownX = point.x, RightDownY = point.y;
+    
+    OrientWASD ret;
+    vector<OrientWASD> tWASD;
+
+    for(auto i : wall.VWall){
+        //wall是渲染层面是叠加，因此要去重相同的
+
+        //左上角检测
+        if(i.DrawX < leftUpX && leftUpX < i.DrawX + i.LongX && 
+           i.DrawY < leftUpY && leftUpY < i.DrawY + i.LongY
+        ){
+            // std::cout << "LeftUp" << std::endl;
+            ret.Up = false;
+            ret.Left = false;
+            tWASD.push_back(OrientWASD(false,true,false,true,i));
+
+        }
+        //左下角检测
+        if(i.DrawX < leftDownX && leftDownX < i.DrawX + i.LongX && 
+           i.DrawY < leftDownY && leftDownY < i.DrawY + i.LongY
+        ){
+            // std::cout << "LeftDown" << std::endl;
+            ret.Down = false;
+            ret.Left = false;
+            tWASD.push_back(OrientWASD(true,false,false,true,i));
+        }
+        //右上角检测
+        if(i.DrawX < RightUpX && RightUpX < i.DrawX + i.LongX && 
+           i.DrawY < RightUpY && RightUpY < i.DrawY + i.LongY
+        ){
+            // std::cout << "RightUp" << std::endl;
+            ret.Right = false;
+            ret.Up = false;
+            tWASD.push_back(OrientWASD(false,true,true,false,i));
+        }
+        //右下角检测
+        if(i.DrawX < RightDownX && RightDownX < i.DrawX + i.LongX && 
+           i.DrawY < RightDownY && RightDownY < i.DrawY + i.LongY
+        ){
+            // std::cout << "RightDown" << std::endl;
+            ret.Down = false;
+            ret.Right = false;
+            tWASD.push_back(OrientWASD(true,false,true,false,i));
+        }
+    }
+
+    if(tWASD.empty()){
+        return OrientWASD();
+    }
+    
+    //查找那个节点是重复的
+    std::cout << "--------------------" << std::endl;
+    for(auto i : tWASD){
+        i.GetInfo();
+    }
+    OrientWASD Duplicate;
+    for(int i = 0; i < tWASD.size(); ++i){
+        for(int j = i+1; j < tWASD.size(); ++j){
+            if(tWASD[i] == tWASD[j]){
+                Duplicate = tWASD[i];
+                break;
+            }
+        }
+    }
+    for(int i = 0; i < tWASD.size(); ++i){
+        if(Duplicate == tWASD[i]){
+            tWASD.erase(tWASD.begin() + i);
+            i = -1;
+        }
+    }
+    std::cout << "********************" << std::endl;
+    std::cout << "DuplicatePoint ";
+    Duplicate.GetInfo();
+    std::cout << std::endl;
+    for(auto i : tWASD){
+        i.GetInfo();
+    }
+    std::cout << "--------------------" << std::endl;
+
+    if(
+        (!(Duplicate == OrientWASD()) && tWASD.size() == 0) ||
+        //一点嵌入的嵌入点是重复点  
+        //或
+        //一点嵌入的嵌入点不是重复点
+        (tWASD.size() == 1 && Duplicate == OrientWASD())
+    )
+    {
+        std::cout << "1 Point" << std::endl;
+        WallXOY EmbadSingleWall;
+        if( (!(Duplicate == OrientWASD()) && tWASD.size() == 0) ){
+            EmbadSingleWall = Duplicate.wall;
+        }
+        else{
+            EmbadSingleWall = tWASD[0].wall;
+        }
+        //看看一点嵌入那个嵌入的多，就向哪里前进
+        //左上
+        if(tWASD[0] == OrientWASD(0,1,0,1)){
+            double LongX = leftUpX - EmbadSingleWall.DrawX;
+            double LongY = leftUpY - EmbadSingleWall.DrawY;
+            if(LongX > LongY){
+                return OrientWASD(0,1,1,1);
+            }
+            else{
+                return OrientWASD(1,1,0,1);
+            }
+        }
+
+        //左下
+        if(tWASD[0] == OrientWASD(1,0,0,1)){
+            double LongX = leftDownX - EmbadSingleWall.DrawX;
+            double LongY = (EmbadSingleWall.DrawY + EmbadSingleWall.LongY) - leftDownY;
+            if(LongX > LongY){
+                return OrientWASD(1,0,1,1);
+            }
+            else{
+                return OrientWASD(1,1,0,1);
+            }
+        }
+
+        //右上
+        if(tWASD[0] == OrientWASD(0,1,1,0)){
+            double LongX = (EmbadSingleWall.DrawX + EmbadSingleWall.LongX) - RightUpX;
+            double LongY = RightUpY - EmbadSingleWall.DrawY;
+            if(LongX > LongY){
+                return OrientWASD(0,1,1,1);
+            }
+            else{
+                return OrientWASD(1,1,1,0);
+            }
+        }
+
+        //右下
+        if(tWASD[0] == OrientWASD(1,0,1,0)){
+            double LongX = (EmbadSingleWall.DrawX + EmbadSingleWall.LongX) - RightDownX;
+            double LongY = (EmbadSingleWall.DrawY + EmbadSingleWall.LongY) - RightDownY;
+            if(LongX > LongY){
+                return OrientWASD(1,0,1,1);
+            }
+            else{
+                return OrientWASD(1,1,1,0);
+            }
+        }
+    }
+
+
+    if(
+        ( tWASD.size() == 1 && !(Duplicate == OrientWASD(1,1,1,1)) ) ||
+        ( tWASD.size() == 2 && Duplicate == OrientWASD(1,1,1,1))
+    ){ 
+        std::cout << "2 Point" << std::endl;
+        if(tWASD.size() == 1 && !(Duplicate == OrientWASD(1,1,1,1))){
+            return Duplicate | tWASD[0];
+        }
+        else{
+            return tWASD[0] | tWASD[1];
+        }
+    }
+
+    //三点不同一定不会出现
+    if(tWASD.size() == 2 && !(Duplicate == OrientWASD(1,1,1,1))){
+        std::cout << "3 Point" << std::endl;
+        OrientWASD t1 = Duplicate | tWASD[0];
+        OrientWASD t2 = Duplicate | tWASD[1];
+        OrientWASD t3 = t1 & t2;
+        return t3;
+    }
+
+    // DuplicatePoint RightDown
+    // LeftDown
+    // LeftDown
+    // LeftDown
+    // 上述情况是 丁字形状况(三个墙面叠加在一起，立方体都在这三个墙中)
+    
+    if(tWASD.size() == 3){
+        std::cout << "4 Point <-> Three Wall" << std::endl;
+        return Duplicate | tWASD[0];
+    }
+    // static bool ErrorMessageBox = true;
+    // if(ErrorMessageBox){
+        MessageBox(NULL,TEXT("The Function of bumping check:\nunexpected size of tWASD"),
+                   TEXT("ERROR"),MB_OK | MB_ICONERROR);
+        // ErrorMessageBox = false;
+    // }
+}
+
 void Camera::ShowCamera(){
     getInstance()->SetCamera(
         TestCurbX, TestCurbY, TestCurbZ, 
@@ -128,6 +322,35 @@ void Camera::Init(){
 //             break;
 //     }
 // }
+void Camera::CameraKeyboard(unsigned char key, int x, int y){
+    double TestCurbLong = getTestCurbLong();
+    OrientWASD orient = CanMove(wall,Point2d(TestCurbX,TestCurbY), TestCurbLong,TestCurbLong);
+
+    switch(key){
+        case 'w':
+            if(orient.Up)
+                TestCurbY += 0.01;
+            break;
+        case 's':
+            if(orient.Down)
+                TestCurbY -= 0.01;
+            break;
+        case 'a':
+            if(orient.Left)
+                TestCurbX += 0.01;
+            break;
+        case 'd':
+            if(orient.Right)
+                TestCurbX -= 0.01;
+            break;
+        case 'q':
+            TestCurbZ -= 0.05;break;
+        case 'e':
+            TestCurbZ += 0.05;break;
+        default:
+            break;
+    }
+}
 
 void Camera::SetCamera(double x, double y, double z, double CameraDistance,
         double LookX, double LookY, double LookZ,

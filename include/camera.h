@@ -5,12 +5,16 @@
 #include "shader.h"
 #include "sharedData.h"
 #include "listener.h"
+#include "randomwall.h"
+#include <vector>
+
 #define GLUT_WHEEL_UP 3
 #define GLUT_WHEEL_DOWN 4
 
 extern GLuint TextureWallID;
 extern GLuint TextureFloorID;
 extern GLuint TextureTextcurbID;
+extern RandomWallXOY wall;
 
 class Camera : public Listener 
 {
@@ -66,13 +70,17 @@ public:
     }
 
     double getTestCurbLong(){
-        return 0.4*scale;
+        return 0.08*scale;
     }
 private:
     void CameraKeyboard(unsigned char key, int x, int y);
     void CameraMouseClick(int btu, int state, int x, int y);
     void CameraMotion(int x, int y);
     void shaderTestCurb(VP& TestCurbPoint, int SmallMap);
+    OrientWASD CanMove(
+        const RandomWallXOY& wall, const Point2d& point, 
+        double Longx, double Longy
+    );
 private:
     // double TestCurbX,TestCurbY,TestCurbZ;      //测试立方体坐标
     // VP TestCurbPoint, TestCurbShaderPoint;                       //测试立方体
@@ -81,14 +89,14 @@ private:
     //测试立方体点集信息
     // const float TestCurb[8][3] = 
     // { 
-    //     0.0f, 0.0f, 0.0f,  //0
-    //     0.4f, 0.0f, 0.0f,  //1
-    //     0.4f, 0.0f, -0.4f, //2
-    //     0.0f, 0.0f, -0.4f, //3
-    //     0.0f, 0.4f, 0.0f,  //4
-    //     0.4f, 0.4f, 0.0f,  //5
-    //     0.4f, 0.4f, -0.4f, //6
-    //     0.0f, 0.4f, -0.4f  //7
+    //     0.00f, 0.00f, 0.00f,  //0
+    //     0.08f, 0.00f, 0.00f,  //1
+    //     0.08f, 0.00f, -0.08f, //2
+    //     0.00f, 0.00f, -0.08f, //3
+    //     0.00f, 0.08f, 0.00f,  //4
+    //     0.08f, 0.08f, 0.00f,  //5
+    //     0.08f, 0.08f, -0.08f, //6
+    //     0.00f, 0.08f, -0.08f  //7
     // }; 
 
     // //测试立方体连接线段
