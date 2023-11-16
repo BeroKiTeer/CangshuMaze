@@ -30,12 +30,13 @@ def generate_maze(rows, cols):
         if not found:
             stack.pop()  # 如果当前位置没有可走的方向，则回退到上一个位置
 
-    return maze
+    return maze,(start_row, start_col)
 
 
-maze = generate_maze(50, 50)
+maze,start = generate_maze(50, 50)
 
 # 打印迷宫地图
-if __name__ == 'main':
+with open("./maze_map.txt", "w") as f:
+    f.write(f'{start[0]} {start[1]}\n')
     for row in maze:
-        print(' '.join(row))
+        f.write(' '.join(row))
