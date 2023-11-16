@@ -1,18 +1,32 @@
 #include "camera.h"
 
-void Camera::ShowTestCurb(int SmallMap){
+Camera::Camera()
+{
+    TestCurbX = 0.0; TestCurbY = 0.0; TestCurbZ=0.0;
+    set_angleY(15.0); set_angleZ(-90.0); set_CameraDistance(1.0);
+    set_LMouseDown(false), set_RMouseDown(false);
+    set_LMouseDownX(0), set_LMouseDownY(0);
+    set_DealyTime(0);
+    set_EnableCameraDistance(true);
+    set_EnableCameraLastDistance(1.0);
+    TestCurbShaderID = TextureWallID;
+    scale = 0.4;
+}
+
+void Camera::ShowTestCurb(int SmallMap)
+{
     if(!TestCurbPoint.empty())
         TestCurbPoint.clear();
     for(int i = 0; i < 8; i++){
         TestCurbPoint.push_back(Point(TestCurb[i][0],TestCurb[i][1],TestCurb[i][2]));
     }
     scaleEntirety(TestCurbPoint,scale);
-    translate(TestCurbPoint,TestCurbX, TestCurbY, TestCurbZ);
+    translate(get_TestCurbPoint(),get_TestCurbX(), get_TestCurbY(), get_TestCurbZ());
     if(SmallMap == 1){
         getInstance()->SetCamera(
-            TestCurbX, TestCurbY, TestCurbZ, 
-            CameraDistance, TestCurbX+0.2*scale, TestCurbY+0.2*scale, 
-            TestCurbZ-0.2*scale, angleY, angleZ
+            get_TestCurbX(), get_TestCurbY(), get_TestCurbZ(), 
+            get_CameraDistance(), TestCurbX+0.2*get_scale(), get_TestCurbY()+0.2*get_scale(), 
+            get_TestCurbZ()-0.2*get_scale(), get_angleY(), get_angleZ()
         );
     }
     shaderTestCurb(TestCurbPoint,SmallMap);
@@ -84,8 +98,8 @@ void Camera::shaderTestCurb(VP& TestCurbPoint, int SmallMap){
 void Camera::ShowCamera(){
     getInstance()->SetCamera(
         TestCurbX, TestCurbY, TestCurbZ, 
-        CameraDistance, TestCurbX, TestCurbY, 
-        TestCurbZ, angleY, angleZ
+        get_CameraDistance(), TestCurbX, TestCurbY, 
+        TestCurbZ, get_angleY(), get_angleZ()
     );
     // std::cout << angleY << " " << angleZ << std::endl;
 }
@@ -96,24 +110,24 @@ void Camera::Init(){
     gluPerspective(30.0, 1.0, 0.1, 100.0);
 }
 
-void Camera::CameraKeyboard(unsigned char key, int x, int y){
-    switch(key){
-        case 'w':
-            TestCurbY += 0.05;break;
-        case 's':
-            TestCurbY -= 0.05;break;
-        case 'a':
-            TestCurbX += 0.05;break;
-        case 'd':
-            TestCurbX -= 0.05;break;
-        case 'q':
-            TestCurbZ -= 0.05;break;
-        case 'e':
-            TestCurbZ += 0.05;break;
-        default:
-            break;
-    }
-}
+// void Camera::CameraKeyboard(unsigned char key, int x, int y){
+//     switch(key){
+//         case 'w':
+//             TestCurbY += 0.05;break;
+//         case 's':
+//             TestCurbY -= 0.05;break;
+//         case 'a':
+//             TestCurbX += 0.05;break;
+//         case 'd':
+//             TestCurbX -= 0.05;break;
+//         case 'q':
+//             TestCurbZ -= 0.05;break;
+//         case 'e':
+//             TestCurbZ += 0.05;break;
+//         default:
+//             break;
+//     }
+// }
 
 void Camera::SetCamera(double x, double y, double z, double CameraDistance,
         double LookX, double LookY, double LookZ,
@@ -137,38 +151,38 @@ void Camera::SetCamera(double x, double y, double z, double CameraDistance,
 
 void Camera::CameraMouseClick(int btu, int state, int x, int y){
     if(btu == GLUT_WHEEL_UP){
-        if(EnableCameraDistance)
-            if(CameraDistance > 0.15)
-                CameraDistance -= 0.1;
+        if(get_EnableCameraDistance())
+            if(get_CameraDistance() > 0.15)
+                set_CameraDistance(get_CameraDistance()-0.1);
     }
     if(btu == GLUT_WHEEL_DOWN){
-        if(EnableCameraDistance)
-            CameraDistance += 0.1;
+        if(get_EnableCameraDistance())
+            set_CameraDistance(get_CameraDistance()+0.1);
     }
     if(btu == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-        LMouseDown = true;
-        LMouseDownX = x, LMouseDownY = y;
+        set_LMouseDown(true);
+        set_LMouseDownX(x), set_LMouseDownY(y);
     }
     if(btu == GLUT_LEFT_BUTTON && state == GLUT_UP){
-        LMouseDown = false;
-        DealyTime = 0;
-        LMouseDownX = 0, LMouseDownY = 0;
+        set_LMouseDown(false);
+        set_DealyTime(0);
+        set_LMouseDownX(0), set_LMouseDownY(0);
     }
     if(btu == GLUT_RIGHT_BUTTON && state == GLUT_DOWN){
-        RMouseDown = true;
+        set_RMouseDown(true);
     }
     if(btu == GLUT_RIGHT_BUTTON && state == GLUT_UP){
-        RMouseDown = false;
+        set_RMouseDown(false);
     }
 }
 
 void Camera::CameraMotion(int x, int y){
-    if(LMouseDown){
-        double dx = LMouseDownX - x;
-        double dy = LMouseDownY - y;
-        angleY = angleY - dy/10;
-        angleZ = angleZ + dx/10;
-        LMouseDownX = x;
-        LMouseDownY = y;
+    if(get_LMouseDown()){
+        double dx = get_LMouseDownX() - x;
+        double dy = get_LMouseDownY() - y;
+        set_angleY(get_angleY() - dy/10);
+        set_angleZ(get_angleZ() + dx/10);
+        set_LMouseDownX(x);
+        set_LMouseDownY(y);
     }
 }

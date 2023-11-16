@@ -17,7 +17,13 @@ extern GLuint TextureWallID;
 extern GLuint TextureFloorID;
 extern GLuint TextureTextcurbID;
 
+GLuint SCENESPEED = 5;
+GLuint SCENEID = 0;
+
 UINT TestCurbShaderID = 0;
+
+Camera cameraclass;
+
 void renderScene()
 {
     //加载渲染
@@ -45,7 +51,6 @@ void renderScene()
     //=====================================================================================
     glViewport(0,0,WindowsWidth,WindowsHeight);
 
-    Camera cameraclass;
     //�����������ʹ��getInstance()֮����ܵ�����������
     cameraclass.getInstance()->Init();
     //模型设置
@@ -69,6 +74,17 @@ void renderScene()
     static World DrawWorld;
     DrawWorld.DrawTestMaze(1);
     DrawWorld.DrawCoordinate();
+
+    Person *per = new Person();
+    delete per;
+
+    // Ball *ball = new Ball(Point(0.1,0.1,-0.1),0.05,50,50);
+    // ball->render();
+    // delete ball;
+
+    // Cylinder *cylinder = new Cylinder(Point(0.2,0.2,-0.1),0.01,0.1,50);
+    // cylinder->render();
+    // delete cylinder;
 
     Cube cube1(1.0, 1.0, 0.0, 3.0, 0.25, 0.5);
     cube1.render_wall(1);
@@ -109,11 +125,22 @@ void renderScene()
 
 void sceneMoveLoop(int id)
 {
-    // person->move()
-    // person->draw();
+    if (cameraclass.moveForward) {
+        cameraclass.set_TestCurbY(cameraclass.get_TestCurbY()+0.05);
+        std::cout << cameraclass.get_TestCurbY() << endl;
+    }
+    if (cameraclass.moveBack) {
+        cameraclass.set_TestCurbY(cameraclass.get_TestCurbY()-0.05);
+    }
+    if (cameraclass.moveLeft) {
+        cameraclass.set_TestCurbX(cameraclass.get_TestCurbX()+0.05);
+    }
+    if (cameraclass.moveBack) {
+        cameraclass.set_TestCurbX(cameraclass.get_TestCurbX()-0.05);
+    }
 
     glutPostRedisplay();
-    // glutTimerFunc(SCENESPEED, sceneMoveLoop, id);
+    glutTimerFunc(SCENESPEED, sceneMoveLoop, id);
 }
 
 int main(int argc, char **argv)
@@ -130,11 +157,13 @@ int main(int argc, char **argv)
 
     //事件监听�?
     glutKeyboardFunc(Listener::keyBoardsListener);
+    glutKeyboardUpFunc(Listener::keyboardUpListener);
     glutMouseFunc(Listener::mouseClick);
     glutMotionFunc(Listener::mouseMotionListener);
+    
 
     //loop
-    // glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);
+    glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);
     glutMainLoop();
 
     return 0;
