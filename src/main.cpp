@@ -58,7 +58,7 @@ void readFile() {
 
 void get_maze_map()
 {
-    system("a.exe");
+    system("get_maze.exe");
     readFile();
 }
 
