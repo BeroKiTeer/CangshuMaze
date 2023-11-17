@@ -6,16 +6,30 @@
 #include"transform.h"
 #include"ball.h"
 #include"camera.h"
-class Person:public Cylinder 
+#include "listener.h"
+class Person:public Cylinder
 {
 public:    
-    Person();
-    ~Person() = default;
 
+    static Point pos;
+
+    Person();
+    ~Person();
+
+    static Person* getInstance(){
+        static Person instance;
+        return &instance;
+    }
+    static void OpersonKeyboard(unsigned char key, int x, int y){
+        getInstance()->personKeyboardListener(key,x,y);
+    }
     void draw();
     void move(double delx,double dely);//移动
     void makeMatch(double topx, double topy, double bottomx, double bottomy,
     double matchWidth, double topd, double bottomd, std::vector <Point> &res);
+
+
+    
     //其实就是画圆柱，用于创建一个特定部分（比如腿、手臂等）的3D模型
     /*
             输入参数：
@@ -42,6 +56,8 @@ public:
     void swingIndLeg(double angle, double depth);
     void bodyTranslateY(double delta);
     void bodyTranslateX(double delta);
+
+    void personKeyboardListener(unsigned char key,int x,int y);
 
     void actRotateLoop(int id);     //处理角色或对象的旋转动画 用于glutTimerFunc的回调函数
     

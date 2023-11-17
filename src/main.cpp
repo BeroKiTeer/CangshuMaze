@@ -17,15 +17,16 @@ extern GLuint TextureWallID;
 extern GLuint TextureFloorID;
 extern GLuint TextureTextcurbID;
 
-GLuint SCENESPEED = 5;
+GLuint SCENESPEED = 20;
 GLuint SCENEID = 0;
 
 UINT TestCurbShaderID = 0;
 
 Camera cameraclass;
 
-void renderScene()
+void display()
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //加载渲染
     glEnable(GL_DEPTH_TEST);    
 	glEnable(GL_TEXTURE_2D); 
@@ -50,8 +51,6 @@ void renderScene()
 
     //=====================================================================================
     glViewport(0,0,WindowsWidth,WindowsHeight);
-
-    //�����������ʹ��getInstance()֮����ܵ�����������
     cameraclass.getInstance()->Init();
     //模型设置
     glMatrixMode(GL_MODELVIEW);
@@ -59,24 +58,26 @@ void renderScene()
     glLoadIdentity();
     
     if(IsThirdPeople){
-        cameraclass.getInstance()->DisableFirstPerson();
-        cameraclass.getInstance()->ShowTestCurb(1);
+        cameraclass.DisableFirstPerson();
+        cameraclass.ShowTestCurb(1);
     }
     else{
-        cameraclass.getInstance()->EnableFirstPerson();
-        cameraclass.getInstance()->ShowCamera();
+        cameraclass.EnableFirstPerson();
+        cameraclass.ShowCamera();
     }
 
     
     static SkyBox sky;
-    sky.ShowSky();
+    sky.ShowSky(); 
+
+    
 
     static World DrawWorld;
     DrawWorld.DrawTestMaze(1);
     DrawWorld.DrawCoordinate();
 
-    Person *per = new Person();
-    delete per;
+    Person *person = new Person();
+    delete person;
 
     // Ball *ball = new Ball(Point(0.1,0.1,-0.1),0.05,50,50);
     // ball->render();
@@ -86,8 +87,8 @@ void renderScene()
     // cylinder->render();
     // delete cylinder;
 
-    Cube cube1(1.0, 1.0, 0.0, 3.0, 0.25, 0.5);
-    cube1.render_wall(1);
+    // Cube cube1(1.0, 1.0, 0.0, 3.0, 0.25, 0.5);
+    // cube1.render_wall(1);
     vector<Cube> WallGroup;
     for(auto i : wall.VWall){
         WallGroup.push_back(Cube(i.DrawX, i.DrawY, 0.0, i.LongX, i.LongY, 0.5));
@@ -126,17 +127,18 @@ void renderScene()
     glPopMatrix();
 
     glutSwapBuffers();
-    Sleep(10);
 }
 
 void sceneMoveLoop(int id)
 {
     if (cameraclass.moveForward) {
         cameraclass.set_TestCurbY(cameraclass.get_TestCurbY()+0.05);
-        std::cout << cameraclass.get_TestCurbY() << endl;
+        std::cout << cameraclass.get_TestCurbY() << std::endl;
+        // std::cout << Listener::get_TestCur) << std::endl;
     }
     if (cameraclass.moveBack) {
         cameraclass.set_TestCurbY(cameraclass.get_TestCurbY()-0.05);
+        std::cout << cameraclass.get_TestCurbY() << std::endl;
     }
     if (cameraclass.moveLeft) {
         cameraclass.set_TestCurbX(cameraclass.get_TestCurbX()+0.05);
@@ -158,15 +160,16 @@ int main(int argc, char **argv)
     glutInitWindowSize(WindowsWidth+SmallMapSizeINT,WindowsHeight);
     glutCreateWindow("MazeGame");
 
-    glutDisplayFunc(renderScene);
-    glutIdleFunc(renderScene);
+    glutDisplayFunc(display);
+    // glutIdleFunc(display);
 
-    //事件监听�?
+    //listener
     glutKeyboardFunc(Listener::keyBoardsListener);
     glutKeyboardUpFunc(Listener::keyboardUpListener);
     glutMouseFunc(Listener::mouseClick);
     glutMotionFunc(Listener::mouseMotionListener);
-    
+    glutSpecialFunc(Listener::specialListener);
+    glutSpecialUpFunc(Listener::specialUpListener);
 
     //loop
     glutTimerFunc(SCENESPEED, sceneMoveLoop, SCENEID);

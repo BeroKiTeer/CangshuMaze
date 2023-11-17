@@ -1,30 +1,25 @@
 #include"Person.h"
 
-// void Person::makeBody()//
-// {
-    
-// }
+Point Person::pos = {0,0,0};
 
-Person::Person()
+Person::Person():Listener()
 {
-    this->head=new Ball(Point(0.25,0.2,-0.275),0.01,0.1,30);
-    this->Body=new Cylinder(Point(0.25,0.2,-0.2),0.01,0.1,50);;
-    this->leftArm=new Cylinder(Point(0.2,0.2,-0.2),0.01,0.1,50);
-    this->rightArm=new Cylinder(Point(0.3,0.2,-0.2),0.01,0.1,50);
-    this->leftLeg=new Cylinder(Point(0.2,0.2,-0.1),0.01,0.1,50);
-    this->rightLeg=new Cylinder(Point(0.3,0.2,-0.1),0.01,0.1,50);
-    this->head=new Ball(Point(0.5,0.5,-0.9),0.1f,30,30);
-    this->Body=new Cylinder(Point(0.5,0.5,-0.4),1.0f,8,30);
-    this->leftArm=new Cylinder(Point(0.4,0.5,-0.575),0.1f,0.45,30);
-    this->rightArm=new Cylinder(Point(0.6,0.5,-0.575),0.1f,0.45,30);
-    this->leftLeg=new Cylinder(Point(0.45,0.5,-0.175),0.05f,0.35,30);
-    this->rightLeg=new Cylinder(Point(0.55,0.5,-0.175),0.05f,0.35,30);
+    this->head=new Ball(Point(0.5+pos.x,0.5+pos.y,-0.425+pos.z),0.05f,30,30);
+    this->Body=new Cylinder(Point(0.5+pos.x,0.5+pos.y,-0.375+pos.z),0.05f,0.25,30);
+    this->leftArm=new Cylinder(Point(0.425+pos.x,0.5+pos.y,-0.375+pos.z),0.025f,0.25,30);
+    this->rightArm=new Cylinder(Point(0.575+pos.x,0.5+pos.y,-0.375+pos.z),0.025f,0.25,30);
+    this->leftLeg=new Cylinder(Point(0.475+pos.x,0.5+pos.y,-0.25+pos.z),0.025f,0.25,30);
+    this->rightLeg=new Cylinder(Point(0.525+pos.x,0.5+pos.y,-0.25+pos.z),0.025f,0.25,30);
     head->render();
     Body->render();
     leftArm->render();
     rightArm->render();
     leftLeg->render();
     rightLeg->render();
+}
+
+Person::~Person()
+{
     delete this->head;
     delete this->Body;
     delete this->leftArm;
@@ -115,7 +110,7 @@ void Person::rotateIndRightLeg(double angle)
 
     rotateDZ(res.topCircle,EachStepAngle);
     rotateDZ(res.bottomCircle,EachStepAngle);
-
+    std::cout<<"角度："<<res.topCircle[0].x<<' '<<res.topCircle[0].y<<' '<<res.topCircle[0].z<<endl;
     // double c=cos(angle),s=sin(angle);
     // double transMartix[4][4]={{c,0,s,0},{0,1,0,0},{-s,0,c,0},{0,0,0,1}};
 
@@ -146,6 +141,7 @@ void Person::swingIndLeg(double angle,double depth)
 {
     Cylinder resLeft=*leftLeg,resRight=*rightLeg;
     rotateDX(resLeft.topCircle,angle*atan(1)/45);
+    std::cout<<resLeft.topCircle[0].x<<' '<<resLeft.topCircle[0].y<<' '<<resLeft.topCircle[0].z<<endl;
     rotateDX(resLeft.bottomCircle,angle*atan(1)/45);
     rotateDX(resRight.topCircle,-angle*atan(1)/45);
     rotateDX(resRight.bottomCircle,-angle*atan(1)/45);
@@ -157,12 +153,16 @@ void Person::bodyTranslateY(double delta)
     Cylinder resBody=*Body,resLeftArm=*leftArm,resRightArm=*rightArm,resLeftLeg=*leftLeg,resRightLeg=*rightLeg;
     translateY(resBody.topCircle,delta);
     translateY(resBody.bottomCircle,delta);
+
     translateY(resLeftArm.topCircle,delta);
     translateY(resLeftArm.bottomCircle,delta);
+
     translateY(resRightArm.topCircle,delta);
     translateY(resRightArm.bottomCircle,delta);
+    
     translateY(resLeftLeg.topCircle,delta);
     translateY(resLeftLeg.bottomCircle,delta);
+    
     translateY(resRightLeg.topCircle,delta);
     translateY(resRightLeg.bottomCircle,delta);
     *Body=resBody,*leftArm=resLeftArm,*leftLeg=resLeftLeg,*rightArm=resRightArm,*rightLeg=resRightLeg;
@@ -183,7 +183,50 @@ void Person::bodyTranslateX(double delta)
     translateX(resRightLeg.bottomCircle,delta);
     *Body=resBody,*leftArm=resLeftArm,*leftLeg=resLeftLeg,*rightArm=resRightArm,*rightLeg=resRightLeg;
 }
-void Person::move(double delx,double dely)
+
+
+
+
+void Person::personKeyboardListener(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+        case 'w':
+            pos.y += 0.01;
+            swingIndArm(3,0);
+            swingIndArm(-3,0);
+            break;
+        case 's':
+            pos.y -=0.01;
+            swingIndArm(-3,0);
+            swingIndLeg(3,0);
+            break;
+        case 'a':
+            pos.x +=0.01;
+            rotateIndLeftArm(90);
+            rotateIndLeftLeg(90);
+            rotateIndRightArm(90);
+            rotateIndRightLeg(90);
+            swingIndArm(3,0);
+            swingIndLeg(-3,0);
+            break;
+        case 'd':
+            pos.x -=0.01;
+            rotateIndLeftArm(90);
+            rotateIndLeftLeg(90);
+            rotateIndRightArm(90);
+            rotateIndRightLeg(90);
+            swingIndArm(3,0);
+            swingIndLeg(-3,0);
+            break;
+
+
+    
+        default:
+            break;
+    }
+}
+void Person::move(double delx, double dely)
 {
 
 }

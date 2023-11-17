@@ -3,7 +3,8 @@
 #include <iostream>
 #include "line.h"
 #include "circle.h"
-
+#define GLUT_WHEEL_UP 3
+#define GLUT_WHEEL_DOWN 4
 typedef unsigned int UINT;
 const double WHITE[3] = {1, 1, 1};
 const double RED[3] = {1, 0, 0};
@@ -64,43 +65,43 @@ private:
     }
 };
 
-struct OrientWASD{
-    bool Up, Down, Left, Right;
-    WallXOY wall;
+// struct OrientWASD{
+//     bool Up, Down, Left, Right;
+//     WallXOY wall;
 
-    OrientWASD():Up(true),Down(true),Left(true),Right(true){}
-    OrientWASD(bool Up, bool Down, bool Left, bool Right,WallXOY wall):Up(Up),
-    Down(Down),Left(Left),Right(Right),wall(wall){}
-    OrientWASD(bool Up, bool Down, bool Left, bool Right):Up(Up),
-    Down(Down),Left(Left),Right(Right){}
+//     OrientWASD():Up(true),Down(true),Left(true),Right(true){}
+//     OrientWASD(bool Up, bool Down, bool Left, bool Right,WallXOY wall):Up(Up),
+//     Down(Down),Left(Left),Right(Right),wall(wall){}
+//     OrientWASD(bool Up, bool Down, bool Left, bool Right):Up(Up),
+//     Down(Down),Left(Left),Right(Right){}
 
-    OrientWASD operator|(const OrientWASD& a){
-        return OrientWASD(
-            this->Up || a.Up, this->Down || a.Down, 
-            this->Left || a.Left, this->Right || a.Right);
-    }
-    OrientWASD operator&(const OrientWASD& a){
-        return OrientWASD(
-            this->Up && a.Up, this->Down && a.Down, 
-            this->Left && a.Left, this->Right && a.Right);
-    }
+//     OrientWASD operator|(const OrientWASD& a){
+//         return OrientWASD(
+//             this->Up || a.Up, this->Down || a.Down, 
+//             this->Left || a.Left, this->Right || a.Right);
+//     }
+//     OrientWASD operator&(const OrientWASD& a){
+//         return OrientWASD(
+//             this->Up && a.Up, this->Down && a.Down, 
+//             this->Left && a.Left, this->Right && a.Right);
+//     }
 
-    bool operator==(const OrientWASD& a){
-        return (this->Up == a.Up && this->Down == a.Down &&
-                this->Left == a.Left && this->Right == a.Right && this->wall == wall);
-    }
+//     bool operator==(const OrientWASD& a){
+//         return (this->Up == a.Up && this->Down == a.Down &&
+//                 this->Left == a.Left && this->Right == a.Right && this->wall == wall);
+//     }
 
-    void GetInfo(){
-        if(!Left && !Up)
-            std::cout << "LeftUp" << std::endl;
-        if(!Left && !Down)
-            std::cout << "LeftDown" << std::endl;
-        if(!Right && !Up)
-            std::cout << "RightUp" << std::endl;
-        if(!Right && !Down)
-            std::cout << "RightDown"  << std::endl;
-    }
-};
+//     void GetInfo(){
+//         if(!Left && !Up)
+//             std::cout << "LeftUp" << std::endl;
+//         if(!Left && !Down)
+//             std::cout << "LeftDown" << std::endl;
+//         if(!Right && !Up)
+//             std::cout << "RightUp" << std::endl;
+//         if(!Right && !Down)
+//             std::cout << "RightDown"  << std::endl;
+//     }
+// };
 
 
 //编译会出错，只能定义常量

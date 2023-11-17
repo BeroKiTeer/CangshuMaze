@@ -8,6 +8,18 @@ bool Listener::turnLeft = false;
 bool Listener::turnRight = false;
 bool Listener::zoomIn = false;
 bool Listener::zoomOut = false;
+bool Listener::LMouseDown = false;
+bool Listener::RMouseDown = false; 
+int Listener::LMouseDownX = false;
+int Listener::LMouseDownY = false;
+int Listener::LCurrentMouseX = 0;
+int Listener::LCurrentMouseY = 0; 
+GLuint Listener::DealyTime = 0; 
+bool Listener::EnableCameraDistance = true; 
+double Listener::EnableCameraLastDistance = 1.0;
+double Listener::angleY = 15.0;
+double Listener::angleZ = -90.0; 
+double Listener::CameraDistance = 1.0;
 
 Listener::Listener()
 {
@@ -25,6 +37,13 @@ Listener::Listener()
     DealyTime = 0;                      //鼠标拖动旋转停歇时间
     EnableCameraDistance = false;         //是否启用第一人称
     EnableCameraLastDistance = 10;           //第1人称是的相机距离
+    TestCurbX=0;
+    TestCurbY=0;
+    TestCurbZ=0; 
+    TestCurbPoint.clear();
+    TestCurbShaderPoint.clear();  
+    TestCurbShaderID = TextureWallID;          
+    scale = 0.4;    
 }
 
 
@@ -40,7 +59,6 @@ void Listener::keyBoardsListener(unsigned char key, int x, int y){
         case '3':IsThirdPeople = true;break;
         default: break;
     }
-    // Camera::OCameraKeyboard(key,x,y);
 }
 void Listener::keyboardUpListener(unsigned char key, int x, int y)
 {
@@ -82,38 +100,37 @@ void Listener::specialUpListener(int key, int x, int y)
 
 void Listener::mouseClick(int button, int state, int x, int y)
 {
-    // if(button == GLUT_WHEEL_UP){
-    //     if(EnableCameraDistance && CameraDistance > 0.15)
-    //         CameraDistance -= 0.1;
-    // }
-    // if(button == GLUT_WHEEL_DOWN && EnableCameraDistance) {
-    //     CameraDistance += 0.1;
-    // }
-    // if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-    //     LMouseDown = true;
-    //     LMouseDownX = x, LMouseDownY = y;
-    // }
-    // if(button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
-    //     LMouseDown = false;
-    //     DealyTime = 0;
-    //     LMouseDownX = 0, LMouseDownY = 0;
-    // }
-    // if(button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
-    //     RMouseDown = true;
-    // }
-    // if(button == GLUT_RIGHT_BUTTON && state == GLUT_UP) {
-    //     RMouseDown = false;
-    // }
+    if(button == GLUT_WHEEL_UP){
+        if(EnableCameraDistance && CameraDistance > 0.15)
+            CameraDistance -= 0.1;
+    }
+    if(button == GLUT_WHEEL_DOWN && EnableCameraDistance) {
+        CameraDistance += 0.1;
+    }
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+        LMouseDown = true;
+        LMouseDownX = x, LMouseDownY = y;
+    }
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+        LMouseDown = false;
+        DealyTime = 0;
+        LMouseDownX = 0, LMouseDownY = 0;
+    }
+    if(button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
+        RMouseDown = true;
+    }
+    if(button == GLUT_RIGHT_BUTTON && state == GLUT_UP) {
+        RMouseDown = false;
+    }
     // Camera::OCameraMouseClick(button,state,x,y);
 }
 void Listener::mouseMotionListener(int x, int y){
-    // if(LMouseDown) {
-    //     double dx = LMouseDownX - x;
-    //     double dy = LMouseDownY - y;
-    //     angleY = angleY - dy/10;
-    //     angleZ = angleZ + dx/10;
-    //     LMouseDownX = x;
-    //     LMouseDownY = y;
-    // }
-    // Camera::OCameraMotion(x,y);
+    if(LMouseDown) {
+        double dx = LMouseDownX - x;
+        double dy = LMouseDownY - y;
+        angleY = angleY - dy/10;
+        angleZ = angleZ + dx/10;
+        LMouseDownX = x;
+        LMouseDownY = y;
+    }
 }

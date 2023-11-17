@@ -21,6 +21,14 @@ public:
     static bool turnRight;
     static bool zoomIn;
     static bool zoomOut;
+    static bool LMouseDown;
+    static bool RMouseDown; 
+    static int LMouseDownX, LMouseDownY;
+    static int LCurrentMouseX,LCurrentMouseY; 
+    static GLuint DealyTime; 
+    static bool EnableCameraDistance; 
+    static double EnableCameraLastDistance;
+    static double angleY, angleZ, CameraDistance; 
 
     //getter
     inline bool get_moveForward() const { return moveForward; }
@@ -126,6 +134,9 @@ public:
     void set_TestCurbPoint(const std::vector<Point> &TestCurbPoint) {
         this->TestCurbPoint = TestCurbPoint; 
     }
+    void reset_TestCurbPoint() {
+        this->TestCurbPoint.clear(); 
+    }
     void set_TestCurbShaderPoint(const std::vector<Point> &TestCurbShaderPoint) {
         this->TestCurbShaderPoint = TestCurbShaderPoint; 
     }
@@ -163,47 +174,11 @@ public:
     //state：表示窗口获取或失去焦点的状态，GLUT_LEFT（失去焦点）或 GLUT_ENTERED（获取焦点）。
 
 private:
-    bool LMouseDown;
-    bool RMouseDown; 
-    int LMouseDownX, LMouseDownY;
-    int LCurrentMouseX,LCurrentMouseY; 
-    GLuint DealyTime; 
-    bool EnableCameraDistance; 
-    double EnableCameraLastDistance;
-    double angleY, angleZ, CameraDistance; 
 
     double TestCurbX,TestCurbY,TestCurbZ; 
     std::vector<Point> TestCurbPoint;
     std::vector<Point> TestCurbShaderPoint;  
     UINT TestCurbShaderID;          
     double scale;                       
-    //测试立方体点集信息
-    const float TestCurb[8][3] = 
-    { 
-        0.0f, 0.0f, 0.0f,  //0
-        0.4f, 0.0f, 0.0f,  //1
-        0.4f, 0.0f, -0.4f, //2
-        0.0f, 0.0f, -0.4f, //3
-        0.0f, 0.4f, 0.0f,  //4
-        0.4f, 0.4f, 0.0f,  //5
-        0.4f, 0.4f, -0.4f, //6
-        0.0f, 0.4f, -0.4f  //7
-    }; 
-
-    //测试立方体连接线段
-    const GLint TestCurbList[12][2] = 
-    { 
-        {0, 1},    
-        {3, 2},    
-        {7, 6},    
-        {4, 5},    
-        {0, 3},    
-        {1, 2},    
-        {5, 6},    
-        {4, 7},
-        {0, 4},
-        {1, 5},
-        {7, 3},
-        {2, 6}
-    };
+    
 };
