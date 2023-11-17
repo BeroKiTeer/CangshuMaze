@@ -9,6 +9,11 @@
 #include "randomwall.h"
 #include "smallmap.h"
 #include "cube.h"
+#include <windows.h>
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <sstream>
 
 extern bool IsThirdPeople;
 extern RandomWallXOY wall;
@@ -16,6 +21,8 @@ extern RandomWallXOY wall;
 extern GLuint TextureWallID;
 extern GLuint TextureFloorID;
 extern GLuint TextureTextcurbID;
+char maze_map[50][50];
+int x,y;
 
 GLuint SCENESPEED = 20;
 GLuint SCENEID = 0;
@@ -24,7 +31,38 @@ UINT TestCurbShaderID = 0;
 
 Camera cameraclass;
 
-void display()
+void readFile() {
+    std::ifstream file("maze_map.txt"); // 打开文件
+
+    if (file.is_open()) { // 检查文件是否成功打开
+        std::string line;
+
+        // 读取第一行并解析其中的两个整数
+        std::getline(file, line);
+        std::istringstream iss(line);
+        iss >> x >> y;
+
+        // 读取接下来的50行字符串到二维数组中
+        for (int i = 0; i < 50; i++) {
+            std::getline(file, line);
+            for (int j = 0; j < 50; j++) {
+                maze_map[i][j] = line[j];
+            }
+        }
+        file.close(); // 关闭文件
+
+    } else {
+        std::cout << "无法打开文件" << std::endl;
+    }
+}
+
+void get_maze_map()
+{
+    system("get_maze.exe");
+    readFile();
+}
+
+void renderScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //加载渲染
