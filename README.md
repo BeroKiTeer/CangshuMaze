@@ -1,6 +1,12 @@
 # CangshuMaze
 A simple 3d maze game by OpenGL 
 
+#安装说明
+
+需要gcc+freeglut环境
+
+编译需要再终端输入`make`指令。待编译完成后运行CangshuMaze.exe
+
 # 相机
 
 在测试立方体下按1第一人称，按3第三人称
