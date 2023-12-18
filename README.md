@@ -1,7 +1,7 @@
 # CangshuMaze
 A simple 3d maze game by OpenGL 
 
-#安装说明
+# 安装说明
 
 需要gcc+freeglut环境
 
