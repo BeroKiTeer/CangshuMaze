@@ -1,6 +1,7 @@
 # CangshuMaze
 A simple 3d maze game by OpenGL 
 
+![GitHub contributors](https://img.shields.io/github/contributors/BeroKiTeer/CangshuMaze.svg?style=flat-square)
 # 安装说明
 
 需要gcc+freeglut环境
@@ -178,3 +179,5 @@ rotateDX(CurbPoint,30); //沿着x轴旋转30度
 1. 打开终端
 2. 输入命令`mingw32-make`
 3. 直接运行CangshuMaze.exe
+
+
